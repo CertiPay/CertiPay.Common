@@ -37,7 +37,7 @@
                         .Enrich.WithProperty("Environment", EnvUtil.Current)
 
                         // Note: These enrichers grab info off of the HttpRequest.Context if it's available, otherwise are no-ops
-                        // Further, note that these become available via the log template but are not automatically included in the rolling file output
+                // Further, note that these become available via the log template but are not automatically included in the rolling file output
                         .Enrich.With<HttpRequestIdEnricher>()
                         .Enrich.With<HttpSessionIdEnricher>()
                         .Enrich.With<HttpRequestRawUrlEnricher>()
@@ -49,7 +49,7 @@
                         .WriteTo.ColoredConsole()
 
                         .WriteTo.RollingFile(
-                            // Environment, ApplicationName, and date are already in the folder\file name
+                // Environment, ApplicationName, and date are already in the folder\file name
                             outputTemplate: "{Timestamp:HH:mm:ss.fff} [{Level}] [{Logger}] {Message}{NewLine}{Exception}",
                             pathFormat: LogManager.LogFilePath
                         )
@@ -72,6 +72,30 @@
         public void Log<TException>(LogLevel level, string messageTemplate, TException exception, params object[] propertyValues) where TException : Exception
         {
             logger.Value.ForContext("Logger", _key).Write(GetLevel(level), exception, messageTemplate, propertyValues);
+        }
+
+        public void Log(LogLevel level, System.Collections.Generic.Dictionary<string, object> properties, string messageTemplate, params object[] propertyValues)
+        {
+            var logContext = logger.Value.ForContext("Logger", _key);
+
+            foreach (var property in properties)
+            {
+                logContext.ForContext(property.Key, property.Value);
+            }
+
+            logContext.Write(GetLevel(level), messageTemplate, propertyValues);
+        }
+
+        public void Log<TException>(LogLevel level, System.Collections.Generic.Dictionary<string, object> properties, string messageTemplate, TException exception, params object[] propertyValues) where TException : Exception
+        {
+            var logContext = logger.Value.ForContext("Logger", _key);
+
+            foreach (var property in properties)
+            {
+                logContext.ForContext(property.Key, property.Value);
+            }
+
+            logContext.Write(GetLevel(level), exception, messageTemplate, propertyValues);
         }
 
         internal static LogEventLevel GetLevel(LogLevel level)
@@ -98,5 +122,8 @@
                     return LogEventLevel.Verbose;
             }
         }
+
+
+
     }
 }
