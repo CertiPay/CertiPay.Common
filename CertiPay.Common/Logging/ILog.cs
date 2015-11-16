@@ -35,5 +35,16 @@
         /// <param name="value">The value to store</param>
         /// <param name="destructureObjects">If true, will destructure (serialize) the object for storage. Defaults to false.</param>
         ILog WithContext(String propertyName, Object value, Boolean destructureObjects = false);
+
+        /// <summary>
+        /// Push a property onto the context, returning an <see cref="IDisposable"/>
+        /// that can later be used to remove the property, along with any others that
+        /// may have been pushed on top of it and not yet popped. The property must
+        /// be popped from the same thread/logical call context.
+        /// </summary>
+        /// <param name="propertyName">The name to store the context with</param>
+        /// <param name="value">The value to store</param>
+        /// <param name="destructureObjects">If true, will destructure (serialize) the object for storage. Defaults to false.</param>
+        IDisposable WithAmbientContext(String propertyName, Object value, Boolean destructureObjects = false);
     }
 }

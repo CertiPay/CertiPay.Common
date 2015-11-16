@@ -30,5 +30,25 @@ namespace CertiPay.Common.Tests.Logging
                 .GetCurrentClassLogger()
                 .Fatal("An error occured without context!");
         }
+
+        [Test]
+        public void Include_Ambient_Context()
+        {
+            ILog log = LogManager.GetCurrentClassLogger();
+
+            using (log.WithAmbientContext("property1", "pickles"))
+            {
+                log.Info("Should include property 1");
+
+                using (log.WithAmbientContext("property2", "mustard"))
+                {
+                    log.Info("Should include property 1 and property 2");
+                }
+
+                log.Info("Should only include property 1");
+            }
+
+            log.Info("Should include neither property 1 nor property 2");
+        }
     }
 }

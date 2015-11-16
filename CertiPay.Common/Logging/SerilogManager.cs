@@ -48,6 +48,10 @@
 
                         .WriteTo.ColoredConsole()
 
+#if DEBUG
+                        .WriteTo.Sink(new Serilog.Sinks.RollingFile.RollingFileSink(@"c:\logs\out.json", new Serilog.Formatting.Json.JsonFormatter { }, null, null, null))
+#endif
+
                         .WriteTo.RollingFile(
                             // Environment, ApplicationName, and date are already in the folder\file name
                             outputTemplate: "{Timestamp:HH:mm:ss.fff} [{Level}] [{Logger}] {Message}{NewLine}{Exception}",
@@ -83,6 +87,11 @@
         {
             // Add the context into the _logger and pass back the ILog interface
             return new SerilogManager(_logger.ForContext(propertyName, value, destructureObjects));
+        }
+
+        public IDisposable WithAmbientContext(string name, object value, Boolean destructureObjects = false)
+        {
+            return Serilog.Context.LogContext.PushProperty(name, value, destructureObjects);
         }
 
         internal static LogEventLevel GetLevel(LogLevel level)
