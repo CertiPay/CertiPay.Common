@@ -131,8 +131,9 @@ namespace CertiPay.Common.Notifications
             await _smtp.SendMailAsync(message).ContinueWith(x =>
             {
                 Log.Info("Sent email {@message}", ForLog(message));
-            }, 
-            TaskContinuationOptions.OnlyOnRanToCompletion);
+            },
+            TaskContinuationOptions.OnlyOnRanToCompletion)
+            .ConfigureAwait(false);
         }
 
         public virtual void FilterRecipients(MailAddressCollection addresses)
@@ -173,7 +174,7 @@ namespace CertiPay.Common.Notifications
                     attachment.Filename = "Attachment.pdf";
                 }
 
-                byte[] data = await client.GetByteArrayAsync(attachment.Uri);
+                byte[] data = await client.GetByteArrayAsync(attachment.Uri).ConfigureAwait(false);
 
                 // MailMessage disposes of the attachment stream when it disposes
 
