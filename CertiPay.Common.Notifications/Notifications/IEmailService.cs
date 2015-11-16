@@ -128,12 +128,14 @@ namespace CertiPay.Common.Notifications
             FilterRecipients(message.CC);
             FilterRecipients(message.Bcc);
 
-            await _smtp.SendMailAsync(message).ContinueWith(x =>
-            {
-                Log.Info("Sent email {@message}", ForLog(message));
-            },
-            TaskContinuationOptions.OnlyOnRanToCompletion)
-            .ConfigureAwait(false);
+            await
+                _smtp
+                .SendMailAsync(message)
+                .ContinueWith(result =>
+                {
+                    Log.Info("Sent email {@message} ({status})", ForLog(message), result.Status);
+                })
+                .ConfigureAwait(false);
         }
 
         public virtual void FilterRecipients(MailAddressCollection addresses)
@@ -188,7 +190,7 @@ namespace CertiPay.Common.Notifications
         {
             return new
             {
-                To = String.Join(",",  msg.To.Select(_ => _.Address)),
+                To = String.Join(",", msg.To.Select(_ => _.Address)),
                 CC = String.Join(",", msg.CC.Select(_ => _.Address)),
                 Bcc = String.Join(",", msg.Bcc.Select(_ => _.Address)),
                 msg.From,
