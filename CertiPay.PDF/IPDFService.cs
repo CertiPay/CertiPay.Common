@@ -42,7 +42,7 @@ namespace CertiPay.PDF
 
             using (Doc pdf = new Doc())
             {
-                pdf.HtmlOptions.Engine = EngineType.Gecko;
+                pdf.HtmlOptions.Engine = settings.UseMSHtmlEngine ? EngineType.MSHtml : EngineType.Gecko;
 
                 pdf.HtmlOptions.Timeout = (int)settings.Timeout.TotalMilliseconds;
                 pdf.HtmlOptions.RetryCount = settings.RetryCount;
@@ -173,6 +173,11 @@ namespace CertiPay.PDF
             /// </summary>
             public Boolean UseLinks { get; set; }
 
+            /// <summary>
+            /// Set this property to true to use the MSHTML rendering engine instead of GECKO
+            /// </summary>
+            public Boolean UseMSHtmlEngine { get; set; }
+
             public Settings()
             {
                 this.Uris = new List<String>();
@@ -183,6 +188,7 @@ namespace CertiPay.PDF
                 this.UseLandscapeOrientation = false;
                 this.UseForms = false;
                 this.UseLinks = false;
+                this.UseMSHtmlEngine = false;
             }
         }
     }
