@@ -1,6 +1,8 @@
 ﻿namespace CertiPay.Common
 {
     using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -15,6 +17,21 @@
         public static TransactionScope StartTrx(IsolationLevel Isolation = IsolationLevel.ReadUncommitted)
         {
             return new TransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = Isolation });
+        }
+
+        /// <summary>
+        /// Performs manual validation of the object using the data annotations, returning
+        /// true if it passes and provides a list of results from the validation
+        /// </summary>
+        /// <remarks>
+        /// Make sure that you have any necessary resources loaded (i.e. CertiPay.Resources) for error messages
+        /// or else this will always return true!!!
+        /// </remarks>
+        public static Boolean TryValidate(object @object, ICollection<ValidationResult> results)
+        {
+            var context = new ValidationContext(@object, serviceProvider: null, items: null);
+
+            return Validator.TryValidateObject(@object, context, results, validateAllProperties: true);
         }
 
         /// <summary>
