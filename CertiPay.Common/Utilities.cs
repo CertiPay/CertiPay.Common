@@ -1,6 +1,7 @@
 ﻿namespace CertiPay.Common
 {
     using System;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Transactions;
@@ -14,6 +15,14 @@
         public static TransactionScope StartTrx(IsolationLevel Isolation = IsolationLevel.ReadUncommitted)
         {
             return new TransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = Isolation });
+        }
+
+        /// <summary>
+        /// Removes invalid characters from filenames and replaces them with the given character
+        /// </summary>
+        public static String FixFilename(String filename, String replacement = "")
+        {
+            return Path.GetInvalidFileNameChars().Aggregate(filename, (current, c) => current.Replace(c.ToString(), replacement));
         }
 
         /// <summary>
