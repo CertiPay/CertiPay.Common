@@ -3,9 +3,19 @@
     using System;
     using System.Linq;
     using System.Reflection;
+    using System.Transactions;
 
     public static class Utilities
     {
+        /// <summary>
+        /// Starts a new transaction scope with the given isolation level
+        /// </summary>
+        /// <returns></returns>
+        public static TransactionScope StartTrx(IsolationLevel Isolation = IsolationLevel.ReadUncommitted)
+        {
+            return new TransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = Isolation });
+        }
+
         /// <summary>
         /// Returns the assembly version of the assembly formatted as Major.Minor (build Build#)
         /// </summary>
