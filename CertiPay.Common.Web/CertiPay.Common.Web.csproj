@@ -74,6 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExceptionLoggingFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConventionBasedMetadataProvider.cs" />
     <Compile Include="Extensions\AttributeExtensions.cs" />
@@ -89,7 +90,12 @@
     <None Include="packages.config" />
     <None Include="README.md" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CertiPay.Common\CertiPay.Common.csproj">
+      <Project>{a92be565-b277-4d94-a782-b9c2f0162c35}</Project>
+      <Name>CertiPay.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

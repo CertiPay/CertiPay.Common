@@ -29,6 +29,7 @@
     <dependencies>
       <dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
       <dependency id="Humanizer" version="1.37.7" />
+      <dependency id="CertiPay.Common" />
     </dependencies>
   </metadata>
   <files>
