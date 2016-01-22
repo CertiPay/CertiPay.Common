@@ -22,12 +22,12 @@ namespace CertiPay.Common.Redis
 
         public TimeSpan DefaultExpiration { get { return TimeSpan.FromDays(1); } }
 
-        public Task<T> GetOrAdd<T>(string key, Func<T> factory)
+        public T GetOrAdd<T>(string key, Func<T> factory)
         {
             return GetOrAdd<T>(key, factory, DefaultExpiration);
         }
 
-        public async Task<T> GetOrAdd<T>(string key, Func<T> factory, TimeSpan expiration)
+        public T GetOrAdd<T>(string key, Func<T> factory, TimeSpan expiration)
         {
             T value = default(T);
 
@@ -35,7 +35,26 @@ namespace CertiPay.Common.Redis
             {
                 value = factory.Invoke();
 
-                await Add(key, value);
+                Add(key, value);
+            }
+
+            return value;
+        }
+
+        public Task<T> GetOrAddAsync<T>(string key, Func<T> factory)
+        {
+            return GetOrAddAsync<T>(key, factory, DefaultExpiration);
+        }
+
+        public async Task<T> GetOrAddAsync<T>(string key, Func<T> factory, TimeSpan expiration)
+        {
+            T value = default(T);
+
+            if (!TryGet(key, out value))
+            {
+                value = factory.Invoke();
+
+                await AddAsync(key, value);
             }
 
             return value;
@@ -57,7 +76,12 @@ namespace CertiPay.Common.Redis
             }
         }
 
-        public async Task Add<T>(string key, T value)
+        public void Add<T>(string key, T value)
+        {
+            _connection.GetClient().StringSet(key, value.ToJson());
+        }
+
+        public async Task AddAsync<T>(string key, T value)
         {
             await _connection.GetClient().StringSetAsync(key, value.ToJson()).ConfigureAwait(false);
         }

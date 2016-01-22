@@ -12,9 +12,9 @@ namespace CertiPay.Common.Cache
     {
         public TimeSpan DefaultExpiration { get; set; }
 
-        public InMemoryCache()
-            : this(TimeSpan.FromDays(1))
+        public InMemoryCache() : this(TimeSpan.FromDays(1))
         {
+            // Nothing to do here
         }
 
         public InMemoryCache(TimeSpan defaultExpiration)
@@ -22,9 +22,28 @@ namespace CertiPay.Common.Cache
             this.DefaultExpiration = defaultExpiration;
         }
 
-        public Task<T> GetOrAdd<T>(string key, Func<T> factory)
+        public T GetOrAdd<T>(string key, Func<T> factory)
         {
-            return GetOrAdd(key, factory, DefaultExpiration);
+            return GetOrAdd<T>(key, factory, DefaultExpiration);
+        }
+
+        public T GetOrAdd<T>(string key, Func<T> factory, TimeSpan expiration)
+        {
+            T val = default(T);
+
+            if (!TryGet(key, out val))
+            {
+                val = factory.Invoke();
+
+                Add(key, val, expiration);
+            }
+
+            return val;
+        }
+
+        public Task<T> GetOrAddAsync<T>(string key, Func<T> factory)
+        {
+            return GetOrAddAsync(key, factory, DefaultExpiration);
         }
 
         public Task Remove(string key)
@@ -33,18 +52,9 @@ namespace CertiPay.Common.Cache
             return Task.FromResult(0);
         }
 
-        public Task<T> GetOrAdd<T>(string key, Func<T> factory, TimeSpan expiration)
+        public Task<T> GetOrAddAsync<T>(string key, Func<T> factory, TimeSpan expiration)
         {
-            T val = default(T);
-
-            if (false == TryGet<T>(key, out val))
-            {
-                val = factory.Invoke();
-
-                Add(key, val, expiration);
-            }
-
-            return Task.FromResult(val);
+            return Task.FromResult(GetOrAdd(key, factory, expiration));
         }
 
         public void Add<T>(String key, T val, TimeSpan expiration)
@@ -56,7 +66,7 @@ namespace CertiPay.Common.Cache
         {
             val = default(T);
 
-            if (false == MemoryCache.Default.Contains(key))
+            if (!MemoryCache.Default.Contains(key))
             {
                 return false;
             }

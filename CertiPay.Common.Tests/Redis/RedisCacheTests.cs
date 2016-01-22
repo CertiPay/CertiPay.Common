@@ -22,7 +22,7 @@ namespace CertiPay.Services.Redis
             {
                 foreach (var iteration in Enumerable.Range(1, iterations))
                 {
-                    var notification = cache.GetOrAdd<RedisQueueManagerTests.TestMessage>("Notification:" + iteration, () =>
+                    var notification = cache.GetOrAddAsync<RedisQueueManagerTests.TestMessage>("Notification:" + iteration, () =>
                     {
                         return new RedisQueueManagerTests.TestMessage
                         {

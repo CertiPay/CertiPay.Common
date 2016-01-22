@@ -18,14 +18,28 @@ namespace CertiPay.Common.Cache
         /// if it exists, and adding it to the cache if it does not with the default
         /// expiration period
         /// </summary>
-        Task<T> GetOrAdd<T>(String key, Func<T> factory);
+        T GetOrAdd<T>(String key, Func<T> factory);
+
+        /// <summary>
+        /// Act as a read-through cache, trying to get the item from the cache
+        /// if it exists, and adding it to the cache if it does not with the default
+        /// expiration period
+        /// </summary>
+        Task<T> GetOrAddAsync<T>(String key, Func<T> factory);
 
         /// <summary>
         /// Act as a read-through cache, trying to get the item from the cache
         /// if it exists, and adding it to the cache if it does not with the given
         /// expiration period
         /// </summary>
-        Task<T> GetOrAdd<T>(String key, Func<T> factory, TimeSpan expiration);
+        T GetOrAdd<T>(String key, Func<T> factory, TimeSpan expiration);
+
+        /// <summary>
+        /// Act as a read-through cache, trying to get the item from the cache
+        /// if it exists, and adding it to the cache if it does not with the given
+        /// expiration period
+        /// </summary>
+        Task<T> GetOrAddAsync<T>(String key, Func<T> factory, TimeSpan expiration);
 
         /// <summary>
         /// Remove an item from the cache with the given key
