@@ -161,11 +161,13 @@ namespace CertiPay.Common.Notifications
             FilterRecipients(message.CC);
             FilterRecipients(message.Bcc);
 
-            var result = _smtp.SendMailAsync(message, token);
-            await result;
-
-            Log.Info("Sent email {@message} ({status})", ForLog(message), result.Status);
-
+            await _smtp 
+                .SendMailAsync(message)
+                .ContinueWith(result =>
+                {
+                    Log.Info("Sent email {@message} ({status})", ForLog(message), result.Status);
+                })
+                .ConfigureAwait(false);
         }
 
         public virtual void FilterRecipients(MailAddressCollection addresses)
