@@ -88,9 +88,9 @@ namespace CertiPay.Services.Notifications
         public async Task Test_Async_Send_Cancellation(string email)
         {
 
-            var timeOut = new CancellationTokenSource();
-            var timeOutToken = timeOut.Token;
-            timeOut.Cancel();
+            var cancel = new CancellationTokenSource();
+            var cancelToken = cancel.Token;
+            cancel.Cancel();
           
             IEmailService emailer = new EmailService(new SmtpClient());
 
@@ -98,7 +98,7 @@ namespace CertiPay.Services.Notifications
             {
                 msg.To.Add(email);
                 
-                await emailer.SendAsync(msg, timeOutToken);
+                await emailer.SendAsync(msg, cancelToken);
             }
 
         }
