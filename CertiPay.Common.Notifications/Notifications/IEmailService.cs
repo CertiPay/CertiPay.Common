@@ -31,7 +31,6 @@ namespace CertiPay.Common.Notifications
         /// Send message asynchronously
         /// </summary>
         /// <param name="message"></param>
-        /// <returns></returns>
         Task SendAsync(MailMessage message);
 
         /// <summary>
@@ -39,7 +38,6 @@ namespace CertiPay.Common.Notifications
         /// </summary>
         /// <param name="message"></param>
         /// <param name="token"></param>
-        /// <returns></returns>
         Task SendAsync(MailMessage message, CancellationToken token);
     }
 
@@ -93,22 +91,11 @@ namespace CertiPay.Common.Notifications
             this._smtp = smtp;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="notification"></param>
-        /// <returns></returns>
         public async Task SendAsync(EmailNotification notification)
         {
             await SendAsync(notification, CancellationToken.None);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="notification"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
         public async Task SendAsync(EmailNotification notification, CancellationToken token)
         {
             using (Log.Timer("EmailService.SendAsync", context: notification))
@@ -149,10 +136,6 @@ namespace CertiPay.Common.Notifications
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
         public void Send(MailMessage message)
         {
             using (Log.Timer("EmailService.Send", context: ForLog(message)))
@@ -167,22 +150,11 @@ namespace CertiPay.Common.Notifications
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
-        /// <returns></returns>
         public async Task SendAsync(MailMessage message)
         {
             await SendAsync(message, CancellationToken.None);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
         public async Task SendAsync(MailMessage message, CancellationToken token)
         {
             FilterRecipients(message.To);
@@ -196,10 +168,6 @@ namespace CertiPay.Common.Notifications
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="addresses"></param>
         public virtual void FilterRecipients(MailAddressCollection addresses)
         {
             if (_allowedTestingDomainsEnabled)
@@ -220,12 +188,6 @@ namespace CertiPay.Common.Notifications
             // TODO Check blacklisted email addresses?
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="msg"></param>
-        /// <param name="attachment"></param>
-        /// <returns></returns>
         public async Task AttachUrl(MailMessage msg, EmailNotification.Attachment attachment)
         {
             using (HttpClient client = new HttpClient(new HttpClientHandler { AllowAutoRedirect = true }) { Timeout = DownloadTimeout })
