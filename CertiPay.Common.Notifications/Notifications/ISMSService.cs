@@ -1,5 +1,6 @@
 ﻿using CertiPay.Common.Logging;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Twilio;
 
@@ -35,6 +36,10 @@ namespace CertiPay.Common.Notifications
 
         public Task SendAsync(SMSNotification notification)
         {
+            return SendAsync(notification, CancellationToken.None);
+        }
+        public Task SendAsync(SMSNotification notification, CancellationToken token)
+        {
             using (Log.Timer("SMSNotification.SendAsync", context: notification))
             {
                 // TODO Add error handling
@@ -43,7 +48,8 @@ namespace CertiPay.Common.Notifications
 
                 foreach (var recipient in notification.Recipients)
                 {
-                    client.SendSmsMessage(_twilioSourceNumber, recipient, notification.Content);
+                    if (!token.IsCancellationRequested)
+                        client.SendSmsMessage(_twilioSourceNumber, recipient, notification.Content);
                 }
 
                 return Task.FromResult(0);

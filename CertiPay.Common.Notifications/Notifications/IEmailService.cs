@@ -5,7 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Mail;
+using System.Threading;
 using System.Threading.Tasks;
+using CertiPay.Common.Notifications.Extensions;
 
 namespace CertiPay.Common.Notifications
 {
@@ -19,11 +21,29 @@ namespace CertiPay.Common.Notifications
     /// </remarks>
     public interface IEmailService : INotificationSender<EmailNotification>
     {
+        /// <summary>
+        /// Send Message Synchronously
+        /// </summary>
+        /// <param name="message"></param>
         void Send(MailMessage message);
 
+        /// <summary>
+        /// Send message asynchronously
+        /// </summary>
+        /// <param name="message"></param>
         Task SendAsync(MailMessage message);
+
+        /// <summary>
+        /// Send message asynchronously with a specified cancellation token
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="token"></param>
+        Task SendAsync(MailMessage message, CancellationToken token);
     }
 
+    /// <summary>
+    ///
+    /// </summary>
     public class EmailService : IEmailService
     {
         private static readonly ILog Log = LogManager.GetLogger<IEmailService>();
@@ -62,13 +82,21 @@ namespace CertiPay.Common.Notifications
             get { return _allowedTestingDomainsEnabled; }
             set { _allowedTestingDomainsEnabled = value; }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="smtp"></param>
         public EmailService(SmtpClient smtp)
         {
             this._smtp = smtp;
         }
 
         public async Task SendAsync(EmailNotification notification)
+        {
+            await SendAsync(notification, CancellationToken.None);
+        }
+
+        public async Task SendAsync(EmailNotification notification, CancellationToken token)
         {
             using (Log.Timer("EmailService.SendAsync", context: notification))
             using (var msg = new MailMessage { })
@@ -104,7 +132,7 @@ namespace CertiPay.Common.Notifications
                     await AttachUrl(msg, attachment);
                 }
 
-                await SendAsync(msg);
+                await SendAsync(msg, token);
             }
         }
 
@@ -124,12 +152,16 @@ namespace CertiPay.Common.Notifications
 
         public async Task SendAsync(MailMessage message)
         {
+            await SendAsync(message, CancellationToken.None);
+        }
+
+        public async Task SendAsync(MailMessage message, CancellationToken token)
+        {
             FilterRecipients(message.To);
             FilterRecipients(message.CC);
             FilterRecipients(message.Bcc);
 
-            await
-                _smtp
+            await _smtp 
                 .SendMailAsync(message)
                 .ContinueWith(result =>
                 {
@@ -197,5 +229,7 @@ namespace CertiPay.Common.Notifications
                 msg.Subject
             };
         }
+
     }
+
 }
