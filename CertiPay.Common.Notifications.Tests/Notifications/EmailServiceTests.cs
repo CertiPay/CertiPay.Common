@@ -84,7 +84,6 @@ namespace CertiPay.Services.Notifications
 
         }
 
-        [Test]
         [TestCase("jthomas@certipay.com")]
         public async Task Test_Async_Send_Cancellation(string email)
         {
