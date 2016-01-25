@@ -12,6 +12,7 @@ namespace CertiPay.Common.Notifications.Extensions
     {
         /// <summary>
         /// Extension method to have SmtpClient's SendMailAsync respond to a CancellationToken
+        /// https://gist.github.com/mattbenic/400e3c039ab8ea3e33aa
         /// </summary>
         public static async Task SendMailAsync(
             this SmtpClient client,
