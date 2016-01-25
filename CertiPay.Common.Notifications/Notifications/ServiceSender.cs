@@ -44,7 +44,7 @@ namespace CertiPay.Notifications
         {
             using (Log.Timer("ServiceSender.SendAsync", context: notification, warnIfExceeds: this.Timeout))
             {
-                await Post("/SMS", notification);
+                await Post("/SMS", notification, token);
             }
         }
 
@@ -57,17 +57,17 @@ namespace CertiPay.Notifications
         {
             using (Log.Timer("ServiceSender.SendAsync", context: notification, warnIfExceeds: this.Timeout))
             {
-                await Post("/Emails", notification);
+                await Post("/Emails", notification, token);
             }
         }
 
-        protected virtual async Task Post<T>(String resource, T t)
+        protected virtual async Task Post<T>(String resource, T t, CancellationToken token)
         {
             var json = Serializer.Serialize(t);
 
             var content = new StringContent(json, Encoding.Default, "application/json");
 
-            await GetClient().PostAsync(resource, content);
+            await GetClient().PostAsync(resource, content, token);
         }
 
         protected virtual HttpClient GetClient()
