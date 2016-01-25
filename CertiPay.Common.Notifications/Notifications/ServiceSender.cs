@@ -4,6 +4,7 @@ using RestSharp.Serializers;
 using System;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CertiPay.Notifications
@@ -36,6 +37,11 @@ namespace CertiPay.Notifications
 
         public async Task SendAsync(SMSNotification notification)
         {
+            await SendAsync(notification, CancellationToken.None);
+        }
+
+        public async Task SendAsync(SMSNotification notification, CancellationToken token)
+        {
             using (Log.Timer("ServiceSender.SendAsync", context: notification, warnIfExceeds: this.Timeout))
             {
                 await Post("/SMS", notification);
@@ -43,6 +49,11 @@ namespace CertiPay.Notifications
         }
 
         public async Task SendAsync(EmailNotification notification)
+        {
+            await SendAsync(notification, CancellationToken.None);
+        }
+
+        public async Task SendAsync(EmailNotification notification,CancellationToken token)
         {
             using (Log.Timer("ServiceSender.SendAsync", context: notification, warnIfExceeds: this.Timeout))
             {

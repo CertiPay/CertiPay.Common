@@ -1,4 +1,5 @@
 ﻿using CertiPay.Common.Logging;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CertiPay.Common.Notifications.Notifications
@@ -14,11 +15,20 @@ namespace CertiPay.Common.Notifications.Notifications
 
         public Task SendAsync(EmailNotification notification)
         {
+            return SendAsync(notification, CancellationToken.None);
+        }
+        public Task SendAsync(EmailNotification notification, CancellationToken token)
+        {
             Log.Info("NoOpNotificationSender not sending {@notification}", notification);
             return Task.FromResult(0);
         }
 
         public Task SendAsync(SMSNotification notification)
+        {
+            return SendAsync(notification, CancellationToken.None);
+        }
+
+        public Task SendAsync(SMSNotification notification, CancellationToken token)
         {
             Log.Info("NoOpNotificationSender not sending {@notification}", notification);
             return Task.FromResult(0);

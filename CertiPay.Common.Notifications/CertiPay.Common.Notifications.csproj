@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\SmtpExtensions.cs" />
     <Compile Include="Notifications\EmailNotification.cs" />
     <Compile Include="Notifications\IEmailService.cs" />
     <Compile Include="Notifications\INotificationSender.cs" />
