@@ -65,11 +65,14 @@ namespace CertiPay.Common
         {
             FieldInfo fi = val.GetType().GetField(val.ToString());
 
-            var attributes = fi.GetCustomAttributes<DisplayAttribute>();
-
-            if (attributes != null && attributes.Any())
+            if (fi != null)
             {
-                return selector.Invoke(attributes.First());
+                var attributes = fi.GetCustomAttributes<DisplayAttribute>();
+
+                if (attributes != null && attributes.Any())
+                {
+                    return selector.Invoke(attributes.First());
+                }
             }
 
             return val.ToString();
