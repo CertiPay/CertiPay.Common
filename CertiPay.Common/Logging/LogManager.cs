@@ -4,6 +4,7 @@
     using System;
     using System.Configuration;
     using System.Diagnostics;
+    using System.IO;
     using System.Reflection;
 
     /// <summary>
@@ -19,7 +20,7 @@
 
             ApplicationName = ConfigurationManager.AppSettings["ApplicationName"].TrimToNull() ?? "Unknown";
 
-            LogFilePath = ConfigurationManager.AppSettings["LogFilePath"].TrimToNull() ?? String.Format(@"c:\Logs\{0}\{1}\{2}.log", EnvUtil.Current, ApplicationName, "{Date}");
+            LogPathFormat = Path.Combine(GetLogFolder(), "{Date}.log");
 
             var logLevelConfig = ConfigurationManager.AppSettings["LogLevel"].TrimToNull() ?? "Info";
 
@@ -33,9 +34,9 @@
         /// of the file date. E.g. "Logs\myapp-{Date}.log" will result in log files such
         /// as "Logs\myapp-2013-10-20.log", "Logs\myapp-2013-10-21.log" and so on..
         ///
-        /// Pulls from AppSettings["LogFilePath"], defaults to c:\Logs\{Environment}\{Application}\{Date}.log
+        /// Defaults to c:\Logs\{Environment}\{Application}\{Date}.log
         /// </summary>
-        public static String LogFilePath { get; set; }
+        public static String LogPathFormat { get; set; }
 
         /// <summary>
         /// The name of the application being logged for.
@@ -116,6 +117,33 @@
         public static ILog GetLogger(String key)
         {
             return new SerilogManager(key);
+        }
+
+        private static String GetLogRootPath()
+        {
+            const string key = "LogsPath";
+
+            if (!String.IsNullOrWhiteSpace(ConfigurationManager.AppSettings[key]))
+            {
+                return ConfigurationManager.AppSettings[key];
+            }
+
+            if (!String.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.Machine)))
+            {
+                return Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.Machine);
+            }
+
+            if (!String.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.User)))
+            {
+                return Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.User);
+            }
+
+            return @"c:\Logs";
+        }
+
+        private static String GetLogFolder()
+        {
+            return Path.Combine(GetLogRootPath(), EnvUtil.Current.ToString(), ApplicationName);
         }
     }
 }

@@ -55,7 +55,7 @@
                         .WriteTo.RollingFile(
                             // Environment, ApplicationName, and date are already in the folder\file name
                             outputTemplate: "{Timestamp:HH:mm:ss.fff} [{Level}] [{Logger}] {Message}{NewLine}{Exception}",
-                            pathFormat: LogManager.LogFilePath
+                            pathFormat: LogManager.LogPathFormat
                         )
 
                         .CreateLogger();
