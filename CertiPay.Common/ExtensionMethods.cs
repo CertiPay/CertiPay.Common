@@ -35,6 +35,19 @@ namespace CertiPay.Common
         }
 
         /// <summary>
+        /// Returns a substring of the first N characters
+        /// </summary>
+        public static String Truncate(this String s, int length)
+        {
+            if (s.Length > length)
+            {
+                s = s.Substring(0, length);
+            }
+
+            return s;
+        }
+
+        /// <summary>
         /// Returns the display name from the display attribute on the enumeration, if available.
         /// Otherwise returns the ToString() value.
         /// </summary>
