@@ -54,14 +54,6 @@ namespace CertiPay.PDF
                 pdf.HtmlOptions.AddLinks = settings.UseLinks;
                 pdf.HtmlOptions.UseScript = settings.UseScript;
 
-                pdf.Color.Red = 255;
-                pdf.Color.Green = 255;
-                pdf.Color.Blue = 255;
-
-                pdf.Rect.Inset(10, 10);
-
-                pdf.FillRect();
-
                 // If selected, make the PDF in landscape format
                 if (settings.UseLandscapeOrientation)
                 {
@@ -73,6 +65,10 @@ namespace CertiPay.PDF
 
                 int imageId = 0;
 
+                //Hard coding the page height for a good looking PDF from URL
+                int intHTMLWidth = Convert.ToInt32(1175 * Convert.ToDouble(pdf.Rect.Width / pdf.Rect.Height));
+                pdf.HtmlOptions.BrowserWidth = intHTMLWidth;
+
                 // For each URI provided, add the result to the output doc
                 foreach (String uri in settings.Uris)
                 {
@@ -82,7 +78,7 @@ namespace CertiPay.PDF
                     }
 
                     // Render the web page by uri and return the image id for chaining
-                    imageId = pdf.AddImageUrl(uri, paged: true, width: 0, disableCache: false);
+                    imageId = pdf.AddImageUrl(uri, true, intHTMLWidth, true);
 
                     while (true)
                     {
@@ -184,7 +180,7 @@ namespace CertiPay.PDF
                 this.Timeout = TimeSpan.FromSeconds(60);
                 this.RetryCount = 1;
                 this.ContentCount = 36;
-                this.UseScript = true;
+                this.UseScript = false;
                 this.UseLandscapeOrientation = false;
                 this.UseForms = false;
                 this.UseLinks = false;
