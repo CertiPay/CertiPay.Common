@@ -78,7 +78,7 @@ namespace CertiPay.PDF
                     }
 
                     // Render the web page by uri and return the image id for chaining
-                    imageId = pdf.AddImageUrl(uri, true, intHTMLWidth, true);
+                    imageId = pdf.AddImageUrl(url: uri, paged: true, width: intHTMLWidth, disableCache: true);
 
                     while (true)
                     {
