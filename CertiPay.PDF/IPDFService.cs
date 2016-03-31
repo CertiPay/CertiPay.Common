@@ -61,6 +61,11 @@ namespace CertiPay.PDF
                     pdf.Transform.Translate(pdf.MediaBox.Width, 0);
                     pdf.Rect.Width = pdf.MediaBox.Height;
                     pdf.Rect.Height = pdf.MediaBox.Width;
+
+                    //Need to adjust the rotation of the default page to show in landscape
+                    int theID = pdf.GetInfoInt(pdf.Root, "Pages");
+                    pdf.SetInfo(theID, "/Rotate", "90");
+
                 }
 
                 int imageId = 0;
