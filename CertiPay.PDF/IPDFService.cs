@@ -54,6 +54,10 @@ namespace CertiPay.PDF
                 pdf.HtmlOptions.AddLinks = settings.UseLinks;
                 pdf.HtmlOptions.UseScript = settings.UseScript;
 
+                //Help with rendering css on markup
+                pdf.HtmlOptions.PageLoadMethod = PageLoadMethodType.WebBrowserNavigate;
+                pdf.HtmlOptions.DoMarkup = true;
+
                 // If selected, make the PDF in landscape format
                 if (settings.UseLandscapeOrientation)
                 {
@@ -61,6 +65,11 @@ namespace CertiPay.PDF
                     pdf.Transform.Translate(pdf.MediaBox.Width, 0);
                     pdf.Rect.Width = pdf.MediaBox.Height;
                     pdf.Rect.Height = pdf.MediaBox.Width;
+
+                    //Need to adjust the rotation of the default page to show in landscape
+                    int theID = pdf.GetInfoInt(pdf.Root, "Pages");
+                    pdf.SetInfo(theID, "/Rotate", "90");
+
                 }
 
                 int imageId = 0;
