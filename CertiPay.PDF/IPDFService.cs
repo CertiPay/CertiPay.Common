@@ -54,6 +54,10 @@ namespace CertiPay.PDF
                 pdf.HtmlOptions.AddLinks = settings.UseLinks;
                 pdf.HtmlOptions.UseScript = settings.UseScript;
 
+                //Help with rendering css on markup
+                pdf.HtmlOptions.PageLoadMethod = PageLoadMethodType.WebBrowserNavigate;
+                pdf.HtmlOptions.DoMarkup = true;
+
                 // If selected, make the PDF in landscape format
                 if (settings.UseLandscapeOrientation)
                 {
