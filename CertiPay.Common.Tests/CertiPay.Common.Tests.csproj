@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache\InMemoryCacheTests.cs" />
     <Compile Include="Logging\LogManagerTests.cs" />
     <Compile Include="Logging\MetricLoggingExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
