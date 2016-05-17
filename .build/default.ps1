@@ -29,8 +29,8 @@ $NuGet = Join-Path $SolutionRoot ".nuget\nuget.exe"
 
 $MSBuild = Resolve-Path "${env:ProgramFiles(x86)}\MSBuild\1*.0\Bin\msbuild.exe" | Select-Object -First 1
 
-$NUnitVersion = "2.6.4"
-$NUnit = Join-Path $SolutionRoot "packages\NUnit.Runners.$NUnitVersion\tools\nunit-console.exe"
+$NUnitVersion = "3.2.1"
+$NUnit = Join-Path $SolutionRoot "packages\NUnit.ConsoleRunner.$NUnitVersion\tools\nunit3-console.exe"
 
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
