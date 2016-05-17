@@ -16,16 +16,18 @@ namespace CertiPay.Common.Redis
 
         private readonly Lazy<ConnectionMultiplexer> _connectionManager;
 
-        private readonly String _host;
-        private readonly int _port;
-        private readonly int _defaultDb;
+        public String Host { get; private set; }
+
+        public int Port { get; private set; }
+
+        public int DefaultDb { get; private set; }
 
         public RedisConnection(string host = "localhost", int port = 6379, int defaultDb = 0, string password = null)
         {
-            this._host = host;
-            this._port = port;
+            this.Host = host;
+            this.Port = port;
 
-            this._defaultDb = defaultDb;
+            this.DefaultDb = defaultDb;
 
             var options = new ConfigurationOptions
             {
@@ -37,7 +39,7 @@ namespace CertiPay.Common.Redis
                 AllowAdmin = false
             };
 
-            options.EndPoints.Add(_host, _port);
+            options.EndPoints.Add(this.Host, this.Port);
 
             Log.Debug("Configured RedisConnection for {host}:{port} db {defaultDb}", host, port, defaultDb);
 
@@ -46,7 +48,7 @@ namespace CertiPay.Common.Redis
 
         public IDatabase GetClient(int? db = null)
         {
-            return _connectionManager.Value.GetDatabase(db ?? _defaultDb);
+            return _connectionManager.Value.GetDatabase(db ?? this.DefaultDb);
         }
 
         public ISubscriber GetSubscriber()
@@ -56,7 +58,7 @@ namespace CertiPay.Common.Redis
 
         public IServer GetServer()
         {
-            return _connectionManager.Value.GetServer(_host, _port);
+            return _connectionManager.Value.GetServer(this.Host, this.Port);
         }
 
         public static RedisConnection FromConfig()

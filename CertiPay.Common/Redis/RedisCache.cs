@@ -90,5 +90,10 @@ namespace CertiPay.Common.Redis
         {
             await _connection.GetClient().KeyDeleteAsync(key, CommandFlags.FireAndForget).ConfigureAwait(false);
         }
+
+        public async Task Flush()
+        {
+            await _connection.GetServer().FlushDatabaseAsync(_connection.DefaultDb);
+        }
     }
 }

@@ -45,5 +45,10 @@ namespace CertiPay.Common.Cache
         /// Remove an item from the cache with the given key
         /// </summary>
         Task Remove(String key);
+
+        /// <summary>
+        /// Removes all items from the cache
+        /// </summary>
+        Task Flush();
     }
 }
