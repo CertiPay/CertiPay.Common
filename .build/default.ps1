@@ -27,7 +27,7 @@ Import-Module "$Here\Common" -DisableNameChecking
 
 $NuGet = Join-Path $SolutionRoot ".nuget\nuget.exe"
 
-$MSBuild ="${env:ProgramFiles(x86)}\MSBuild\12.0\Bin\msbuild.exe"
+$MSBuild = Resolve-Path "${env:ProgramFiles(x86)}\MSBuild\1*.0\Bin\msbuild.exe" | Select-Object -First 1
 
 $NUnitVersion = "2.6.4"
 $NUnit = Join-Path $SolutionRoot "packages\NUnit.Runners.$NUnitVersion\tools\nunit-console.exe"
@@ -66,7 +66,7 @@ Task Install-NUnitRunner {
 }
 
 Task Install-MSBuild {
-    if(!(Test-Path "${env:ProgramFiles(x86)}\MSBuild\12.0\Bin\msbuild.exe")) 
+    if(!(Test-Path $MSBuild)) 
 	{ 
 		cinst microsoft-build-tools -y
 	}
