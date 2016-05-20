@@ -89,7 +89,7 @@
                 // All credit for this goes to https://github.com/nblumhardt/serilog-timings and Nick Blumhardt
 
                 logger
-                    .WithContext(Serilog.Core.Constants.SourceContextPropertyName, nameof(Timing))
+                    .WithContext(Serilog.Core.Constants.SourceContextPropertyName, "CertiPay.Common.Logging.Timing")
                     .Log(level, messageTemplate + " in {TotalMilliseconds:0.0} ms", context.Concat(new object[] { stopWatch.Elapsed.TotalMilliseconds }).ToArray());
             }
         }
