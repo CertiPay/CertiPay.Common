@@ -19,15 +19,6 @@ namespace CertiPay.Common.Tests.Logging
         }
 
         [Test]
-        public void Use_Log_Timer_With_Debug()
-        {
-            using (Log.Timer("Use_Log_Timer_With_Debug", level: LogLevel.Debug))
-            {
-                // Debug tracking happens here
-            }
-        }
-
-        [Test]
         public void Takes_Longer_Than_Threshold()
         {
             using (Log.Timer("Takes_Longer_Than_Threshold", warnIfExceeds: TimeSpan.FromMilliseconds(100)))
@@ -39,7 +30,7 @@ namespace CertiPay.Common.Tests.Logging
         [Test]
         public void Object_Context_Provided()
         {
-            using (Log.Timer("Object_Context_Provided", new { id = 10, userId = 12 }))
+            using (Log.Timer("Object_Context_Provided {id} {userId}", new { id = 10, userId = 12 }))
             {
                 // Cool stuff happens here
             }
