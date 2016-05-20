@@ -11,7 +11,7 @@
     <authors>CertiPay, Matt Wagner</authors>
     <owners>Matt Wagner</owners>
     <dependencies>
-      <dependency id="CertiPay.Common" version="1.1.22" />
+      <dependency id="CertiPay.Common" version="3.0.5" />
       <dependency id="Twilio" version="4.0.3" />
     </dependencies>
   </metadata>
