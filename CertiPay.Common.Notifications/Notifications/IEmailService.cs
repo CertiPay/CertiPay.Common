@@ -98,7 +98,7 @@ namespace CertiPay.Common.Notifications
 
         public async Task SendAsync(EmailNotification notification, CancellationToken token)
         {
-            using (Log.Timer("EmailService.SendAsync", context: notification))
+            using (Log.Timer("EmailService.SendAsync - @{notification}", notification))
             using (var msg = new MailMessage { })
             {
                 // If no address is provided, it will use the default one from the Smtp config
@@ -138,7 +138,7 @@ namespace CertiPay.Common.Notifications
 
         public void Send(MailMessage message)
         {
-            using (Log.Timer("EmailService.Send", context: ForLog(message)))
+            using (Log.Timer("EmailService.Send - {@notification}", context: ForLog(message)))
             {
                 FilterRecipients(message.To);
                 FilterRecipients(message.CC);
