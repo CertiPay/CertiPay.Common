@@ -90,7 +90,7 @@
 
                 logger
                     .WithContext(Serilog.Core.Constants.SourceContextPropertyName, nameof(Timing))
-                    .Log(level, $"{messageTemplate} in {stopWatch.ElapsedMilliseconds:0.0} ms", context.Concat(new object[] { warnIfExceeds.Value, stopWatch.ElapsedMilliseconds }).ToArray());
+                    .Log(level, $"{messageTemplate} in {{TotalMilliseconds:0.0}} ms", context.Concat(new object[] { stopWatch.Elapsed.TotalMilliseconds }).ToArray());
             }
         }
     }

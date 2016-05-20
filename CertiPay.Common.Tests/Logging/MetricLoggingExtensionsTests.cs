@@ -15,13 +15,15 @@ namespace CertiPay.Common.Tests.Logging
             using (Log.Timer("Use_Log_Timer"))
             {
                 // Cool stuff happens here
+
+                Thread.Sleep(TimeSpan.FromMilliseconds(20));
             }
         }
 
         [Test]
         public void Takes_Longer_Than_Threshold()
         {
-            using (Log.Timer("Takes_Longer_Than_Threshold", warnIfExceeds: TimeSpan.FromMilliseconds(100)))
+            using (Log.Timer("Load Customers", warnIfExceeds: TimeSpan.FromMilliseconds(100)))
             {
                 Thread.Sleep(TimeSpan.FromMilliseconds(150));
             }
@@ -30,7 +32,7 @@ namespace CertiPay.Common.Tests.Logging
         [Test]
         public void Object_Context_Provided()
         {
-            using (Log.Timer("Object_Context_Provided {id} {userId}", new { id = 10, userId = 12 }))
+            using (Log.Timer("Loading Employee {id} by User {userId}", new { id = 10, userId = 12 }))
             {
                 // Cool stuff happens here
             }
