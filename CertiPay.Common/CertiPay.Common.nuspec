@@ -12,7 +12,7 @@
     <owners>Matt Wagner</owners>
     <dependencies>
       <dependency id="StackExchange.Redis" version="1.0.481" />
-      <dependency id="Serilog" version="1.5.11" />
+      <dependency id="Serilog" version="1.5.14" />
       <dependency id="SerilogWeb.Classic" version="2.0.6" />
     </dependencies>
   </metadata>
