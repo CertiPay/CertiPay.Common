@@ -42,6 +42,8 @@ namespace CertiPay.PDF
 
             using (Doc pdf = new Doc())
             {
+                pdf.Rect.Inset(20, 20);
+
                 pdf.HtmlOptions.Engine = settings.UseMSHtmlEngine ? EngineType.MSHtml : EngineType.Gecko;
 
                 pdf.HtmlOptions.Timeout = (int)settings.Timeout.TotalMilliseconds;
