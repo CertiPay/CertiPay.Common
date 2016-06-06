@@ -42,7 +42,7 @@ namespace CertiPay.PDF
 
             using (Doc pdf = new Doc())
             {
-                pdf.Rect.Inset(20, 20);
+                pdf.Rect.Inset(20, -20);
 
                 pdf.HtmlOptions.Engine = settings.UseMSHtmlEngine ? EngineType.MSHtml : EngineType.Gecko;
 
@@ -76,7 +76,7 @@ namespace CertiPay.PDF
 
                 int imageId = 0;
 
-                //Hard coding the page height for a good looking PDF from URL
+                ////Hard coding the page height for a good looking PDF from URL
                 int intHTMLWidth = Convert.ToInt32(1175 * Convert.ToDouble(pdf.Rect.Width / pdf.Rect.Height));
                 pdf.HtmlOptions.BrowserWidth = intHTMLWidth;
 
