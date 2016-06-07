@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 
 namespace CertiPay.Common
@@ -9,6 +10,8 @@ namespace CertiPay.Common
     public static class ExtensionMethods
     {
         private static readonly JavaScriptSerializer js = new JavaScriptSerializer();
+
+        private static Regex alphanumeric => new Regex("[^a-zA-Z0-9]");
 
         /// <summary>
         /// Deserializes the string as json into a POCO
@@ -24,6 +27,14 @@ namespace CertiPay.Common
         public static String ToJson(this object obj)
         {
             return js.Serialize(obj);
+        }
+
+        /// <summary>
+        /// Removes any non-alphanumeric characters from the string
+        /// </summary>
+        public static String StripNonAlphanumeric(this String s)
+        {
+            return alphanumeric.Replace(s, String.Empty);
         }
 
         /// <summary>
