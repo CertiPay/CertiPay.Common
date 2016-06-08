@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -65,6 +66,39 @@ namespace CertiPay.Common
             using (var reader = new StreamReader(theStream, encoding ?? DefaultEncoding))
             {
                 return reader.ReadToEnd();
+            }
+        }
+
+        /// <summary>
+        /// Returns the byte array as compressed data
+        /// </summary>
+        public static byte[] Compress(this byte[] data)
+        {
+            using (var writeStream = new MemoryStream { })
+            using (var zipStream = new DeflateStream(writeStream, CompressionMode.Compress))
+            {
+                zipStream.Write(data, 0, data.Length);
+                zipStream.Close();
+
+                return writeStream.ToArray();
+            }
+        }
+
+        /// <summary>
+        /// Returns the compressed byte array after decompressing
+        /// </summary>
+        /// <remarks>
+        /// This method utilizes the built-in Stream.CopyTo, so the default system buffer size of 4096 is used.
+        /// </remarks>
+        public static byte[] Decompress(this byte[] data)
+        {
+            using (var readStream = new MemoryStream(data))
+            using (var zipStream = new DeflateStream(readStream, CompressionMode.Decompress))
+            using (var writeStream = new MemoryStream { })
+            {
+                zipStream.CopyTo(writeStream);
+
+                return writeStream.ToArray();
             }
         }
 
