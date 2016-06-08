@@ -70,12 +70,12 @@ namespace CertiPay.Common
         }
 
         /// <summary>
-        /// Returns the byte array as compressed data
+        /// Returns the byte array as  GZip-format compressed data
         /// </summary>
         public static byte[] Compress(this byte[] data)
         {
             using (var writeStream = new MemoryStream { })
-            using (var zipStream = new DeflateStream(writeStream, CompressionMode.Compress))
+            using (var zipStream = new GZipStream(writeStream, CompressionMode.Compress))
             {
                 zipStream.Write(data, 0, data.Length);
                 zipStream.Close();
@@ -85,7 +85,7 @@ namespace CertiPay.Common
         }
 
         /// <summary>
-        /// Returns the compressed byte array after decompressing
+        /// Returns the GZip-format compressed byte array after decompressing
         /// </summary>
         /// <remarks>
         /// This method utilizes the built-in Stream.CopyTo, so the default system buffer size of 4096 is used.
@@ -93,7 +93,7 @@ namespace CertiPay.Common
         public static byte[] Decompress(this byte[] data)
         {
             using (var readStream = new MemoryStream(data))
-            using (var zipStream = new DeflateStream(readStream, CompressionMode.Decompress))
+            using (var zipStream = new GZipStream(readStream, CompressionMode.Decompress))
             using (var writeStream = new MemoryStream { })
             {
                 zipStream.CopyTo(writeStream);
