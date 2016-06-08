@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 
@@ -9,6 +11,8 @@ namespace CertiPay.Common
 {
     public static class ExtensionMethods
     {
+        private static readonly Encoding DefaultEncoding = Encoding.UTF8;
+
         private static readonly JavaScriptSerializer js = new JavaScriptSerializer();
 
         private static readonly Regex alphanumeric = new Regex("[^a-zA-Z0-9]");
@@ -43,6 +47,25 @@ namespace CertiPay.Common
         public static String TrimToNull(this String s)
         {
             return String.IsNullOrWhiteSpace(s) ? null : s.Trim();
+        }
+
+        /// <summary>
+        /// Returns the given string as a Stream, optionally specifiying the encoding (Default UTF8)
+        /// </summary>
+        public static Stream Streamify(this string theString, Encoding encoding = null)
+        {
+            return new MemoryStream((encoding ?? DefaultEncoding).GetBytes(theString));
+        }
+
+        /// <summary>
+        /// Returns the stream as a string, optionally specifiying the encoding (Default UTF8)
+        /// </summary>
+        public static string Stringify(this Stream theStream, Encoding encoding = null)
+        {
+            using (var reader = new StreamReader(theStream, encoding ?? DefaultEncoding))
+            {
+                return reader.ReadToEnd();
+            }
         }
 
         /// <summary>
