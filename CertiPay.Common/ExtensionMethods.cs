@@ -11,7 +11,7 @@ namespace CertiPay.Common
     {
         private static readonly JavaScriptSerializer js = new JavaScriptSerializer();
 
-        private static Regex alphanumeric => new Regex("[^a-zA-Z0-9]");
+        private static readonly Regex alphanumeric = new Regex("[^a-zA-Z0-9]");
 
         /// <summary>
         /// Deserializes the string as json into a POCO
