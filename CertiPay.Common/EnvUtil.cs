@@ -12,12 +12,13 @@ namespace CertiPay.Common
     /// </summary>
     public static class EnvUtil
     {
-        public enum Environment
+        [Flags]
+        public enum Environment : byte
         {
-            Local,
-            Test,
-            Staging,
-            Production
+            Local = 0,
+            Test = 1 << 0,
+            Staging = 1 << 1,
+            Production = 1 << 2
         }
 
         /// <summary>
