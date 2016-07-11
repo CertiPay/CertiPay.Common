@@ -42,7 +42,7 @@ namespace CertiPay.Notifications
 
         public async Task SendAsync(SMSNotification notification, CancellationToken token)
         {
-            using (Log.Timer("ServiceSender.SendAsync", context: notification, warnIfExceeds: this.Timeout))
+            using (Log.Timer("ServiceSender.SendAsync", warnIfExceeds: this.Timeout))
             {
                 await Post("/SMS", notification, token);
             }
@@ -53,9 +53,9 @@ namespace CertiPay.Notifications
             await SendAsync(notification, CancellationToken.None);
         }
 
-        public async Task SendAsync(EmailNotification notification,CancellationToken token)
+        public async Task SendAsync(EmailNotification notification, CancellationToken token)
         {
-            using (Log.Timer("ServiceSender.SendAsync", context: notification, warnIfExceeds: this.Timeout))
+            using (Log.Timer("ServiceSender.SendAsync", warnIfExceeds: this.Timeout))
             {
                 await Post("/Emails", notification, token);
             }
