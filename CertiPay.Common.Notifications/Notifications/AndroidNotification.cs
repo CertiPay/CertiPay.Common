@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CertiPay.Common.Notifications.Notifications
+namespace CertiPay.Common.Notifications
 {
     public class AndroidNotification : Notification
     {
