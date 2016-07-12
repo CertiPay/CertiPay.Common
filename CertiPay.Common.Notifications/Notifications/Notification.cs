@@ -3,15 +3,19 @@ using System.Collections.Generic;
 
 namespace CertiPay.Common.Notifications
 {
+    /// <summary>
+    /// Describes the base notification content required to send
+    /// </summary>
     public class Notification
     {
-        public String Content { get; set; }
+        /// <summary>
+        /// The content of the message
+        /// </summary>
+        public virtual String Content { get; set; } = String.Empty;
 
-        public ICollection<String> Recipients { get; set; }
-
-        public Notification()
-        {
-            this.Recipients = new List<String>();
-        }
+        /// <summary>
+        /// A list of recipients for the notification, whether emails, phone numbers, or device identifiers
+        /// </summary>
+        public virtual ICollection<String> Recipients { get; set; } = new List<String>();
     }
 }
