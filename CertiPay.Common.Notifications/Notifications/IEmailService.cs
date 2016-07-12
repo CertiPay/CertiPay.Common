@@ -7,7 +7,6 @@ using System.Net.Http;
 using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
-using CertiPay.Common.Notifications.Extensions;
 
 namespace CertiPay.Common.Notifications
 {
@@ -50,42 +49,24 @@ namespace CertiPay.Common.Notifications
 
         private readonly SmtpClient _smtp;
 
-        private static TimeSpan _downloadTimeout = TimeSpan.FromMinutes(1);
-
-        private static IEnumerable<String> _testingDomains = new[] { "certipay.com", "certigy.com" };
-        private static bool _allowedTestingDomainsEnabled = !EnvUtil.IsProd;
-
         /// <summary>
-        /// The length of time we'll allow for downloading attachments for email notifications
+        /// The length of time we'll allow for downloading attachments for email notifications.
+        ///
+        /// Defaults to one minute.
         /// </summary>
-        public static TimeSpan DownloadTimeout
-        {
-            get { return _downloadTimeout; }
-            set { _downloadTimeout = value; }
-        }
+        public static TimeSpan DownloadTimeout { get; set; } = TimeSpan.FromMinutes(1);
 
         /// <summary>
         /// A list of domains that we will allow emails to go to from outside of the production environment
         /// </summary>
-        public static IEnumerable<String> AllowedTestingDomains
-        {
-            get { return _testingDomains; }
-            set { _testingDomains = value; }
-        }
+        public static IEnumerable<String> AllowedTestingDomains { get; set; } = new[] { "certipay.com", "certigy.com" };
 
         /// <summary>
         /// Determines if AllowedTestingDomains will be evaluated when sending emails.
         /// </summary>
         /// <remarks>Enabled by default in all environments except production.</remarks>
-        public static bool AllowedTestingDomainsEnabled
-        {
-            get { return _allowedTestingDomainsEnabled; }
-            set { _allowedTestingDomainsEnabled = value; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="smtp"></param>
+        public static Boolean AllowedTestingDomainsEnabled { get; set; } = !EnvUtil.IsProd;
+
         public EmailService(SmtpClient smtp)
         {
             this._smtp = smtp;
@@ -161,7 +142,7 @@ namespace CertiPay.Common.Notifications
             FilterRecipients(message.CC);
             FilterRecipients(message.Bcc);
 
-            await _smtp 
+            await _smtp
                 .SendMailAsync(message)
                 .ContinueWith(result =>
                 {
@@ -172,7 +153,7 @@ namespace CertiPay.Common.Notifications
 
         public virtual void FilterRecipients(MailAddressCollection addresses)
         {
-            if (_allowedTestingDomainsEnabled)
+            if (AllowedTestingDomainsEnabled)
             {
                 // This is so we don't accidentally send customers emails from non-prod environments
 
@@ -229,7 +210,5 @@ namespace CertiPay.Common.Notifications
                 msg.Subject
             };
         }
-
     }
-
 }
