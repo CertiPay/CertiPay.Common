@@ -23,8 +23,9 @@ namespace CertiPay.Common.Notifications
 
         public async Task SendAsync(EmailNotification notification)
         {
-            await SendAsync(notification, CancellationToken.None); 
+            await SendAsync(notification, CancellationToken.None);
         }
+
         public async Task SendAsync(EmailNotification notification, CancellationToken token)
         {
             using (Log.Timer("QueuedSender.SendAsync", context: notification))
@@ -32,10 +33,12 @@ namespace CertiPay.Common.Notifications
                 await _queue.Enqueue(EmailNotification.QueueName, notification);
             }
         }
+
         public async Task SendAsync(SMSNotification notification)
         {
             await SendAsync(notification, CancellationToken.None);
         }
+
         public async Task SendAsync(SMSNotification notification, CancellationToken token)
         {
             using (Log.Timer("QueuedSender.SendAsync", context: notification))
