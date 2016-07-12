@@ -18,12 +18,12 @@ namespace CertiPay.Common.Notifications
         /// <summary>
         /// A list of email addresses to CC
         /// </summary>
-        public ICollection<String> CC { get; set; }
+        public ICollection<String> CC { get; set; } = new List<String>();
 
         /// <summary>
         /// A list of email addresses to BCC
         /// </summary>
-        public ICollection<String> BCC { get; set; }
+        public ICollection<String> BCC { get; set; } = new List<String>();
 
         /// <summary>
         /// The subject line of the email
@@ -33,15 +33,7 @@ namespace CertiPay.Common.Notifications
         /// <summary>
         /// Any attachments to the email in the form of URLs to download
         /// </summary>
-        public ICollection<Attachment> Attachments { get; set; }
-
-        public EmailNotification()
-        {
-            this.Recipients = new List<String>();
-            this.Attachments = new List<Attachment>();
-            this.CC = new List<String>();
-            this.BCC = new List<String>();
-        }
+        public ICollection<Attachment> Attachments { get; set; } = new List<Attachment>();
 
         /// <summary>
         /// A file may be attached to the email notification by providing a URL to download
