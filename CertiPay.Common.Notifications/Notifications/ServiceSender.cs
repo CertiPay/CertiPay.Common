@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CertiPay.Notifications
 {
-    public class ServiceSender : INotificationSender<EmailNotification>, INotificationSender<SMSNotification>
+    public class ServiceSender : INotificationSender<EmailNotification>, INotificationSender<SMSNotification>, INotificationSender<AndroidNotification>
     {
         private static readonly ILog Log = LogManager.GetLogger<ServiceSender>();
 
@@ -58,6 +58,19 @@ namespace CertiPay.Notifications
             using (Log.Timer("ServiceSender.SendAsync", warnIfExceeds: this.Timeout))
             {
                 await Post("/Emails", notification, token);
+            }
+        }
+
+        public virtual async Task SendAsync(AndroidNotification notification)
+        {
+            await SendAsync(notification, CancellationToken.None);
+        }
+
+        public virtual async Task SendAsync(AndroidNotification notification, CancellationToken token)
+        {
+            using (Log.Timer("ServiceSender.SendAsync", warnIfExceeds: this.Timeout))
+            {
+                await Post("/Android", notification, token);
             }
         }
 
