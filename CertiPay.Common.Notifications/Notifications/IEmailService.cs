@@ -59,7 +59,7 @@ namespace CertiPay.Common.Notifications
         /// <summary>
         /// A list of domains that we will allow emails to go to from outside of the production environment
         /// </summary>
-        public static IEnumerable<String> AllowedTestingDomains { get; set; } = new[] { "certipay.com", "certigy.com" };
+        public static IEnumerable<String> AllowedTestingDomains { get; set; } = new[] { "certipayonline.com", "certipay.com", "certigy.com" };
 
         /// <summary>
         /// Determines if AllowedTestingDomains will be evaluated when sending emails.
