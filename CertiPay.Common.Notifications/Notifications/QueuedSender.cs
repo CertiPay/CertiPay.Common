@@ -11,7 +11,8 @@ namespace CertiPay.Common.Notifications
     public partial class QueuedSender :
         INotificationSender<SMSNotification>,
         INotificationSender<EmailNotification>,
-        INotificationSender<AndroidNotification>
+        INotificationSender<AndroidNotification>,
+        INotificationSender<iOSNotification>
     {
         private static readonly ILog Log = LogManager.GetLogger<QueuedSender>();
 
@@ -58,6 +59,19 @@ namespace CertiPay.Common.Notifications
             using (Log.Timer("QueuedSender.SendAsync", context: notification))
             {
                 await _queue.Enqueue(AndroidNotification.QueueName, notification);
+            }
+        }
+
+        public virtual async Task SendAsync(iOSNotification notification)
+        {
+            await SendAsync(notification, CancellationToken.None);
+        }
+
+        public virtual async Task SendAsync(iOSNotification notification, CancellationToken token)
+        {
+            using (Log.Timer("QueuedSender.SendAsync", context: notification))
+            {
+                await _queue.Enqueue(iOSNotification.QueueName, notification);
             }
         }
     }
