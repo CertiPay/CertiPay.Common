@@ -14,6 +14,13 @@ namespace CertiPay.Common.Notifications
         /// </summary>
         public String Title { get; set; }
 
+
+        /// <summary>
+        /// Image to show for the notification's icon, can be remote or located locally in the 
+        /// app itself.
+        /// </summary>
+        public String Image { get; set; }
+
         /// <summary>
         /// Maximum lifespan of the message, from 0 to 4 weeks, after which delivery attempts will expire.
         /// Setting this to 0 seconds will prevent GCM from throttling the "now or never" message.
