@@ -55,6 +55,7 @@
     <Compile Include="Notifications\EmailNotification.cs" />
     <Compile Include="Notifications\IEmailService.cs" />
     <Compile Include="Notifications\INotificationSender.cs" />
+    <Compile Include="Notifications\iOSNotification.cs" />
     <Compile Include="Notifications\ISMSService.cs" />
     <Compile Include="Notifications\NoOpNotificationSender.cs" />
     <Compile Include="Notifications\Notification.cs" />
