@@ -15,6 +15,12 @@ namespace CertiPay.Common.Notifications
         public String Title { get; set; }
 
         /// <summary>
+        /// Number displayed on the App's icon when a notification arrives.
+        /// </summary>
+        public string Badge { get; set; }
+
+
+        /// <summary>
         /// Calls the on('notification') handler in phonegap if set to true, even when the app is
         /// in the background.
         /// </summary>
