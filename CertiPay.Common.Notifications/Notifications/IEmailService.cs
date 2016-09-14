@@ -110,7 +110,7 @@ namespace CertiPay.Common.Notifications
 
                 foreach (var attachment in notification.Attachments)
                 {
-                    await AttachUrl(msg, attachment);
+                    await AttachFile(msg, attachment);
                 }
 
                 await SendAsync(msg, token);
@@ -171,31 +171,42 @@ namespace CertiPay.Common.Notifications
             // TODO Check blacklisted email addresses?
         }
 
-        public async Task AttachUrl(MailMessage msg, EmailNotification.Attachment attachment)
+        internal async Task AttachFile(MailMessage msg, EmailNotification.Attachment attachment)
         {
-            using (HttpClient client = new HttpClient(new HttpClientHandler { AllowAutoRedirect = true }) { Timeout = DownloadTimeout })
+            if (String.IsNullOrWhiteSpace(attachment.Filename))
             {
-                Log.Info("Attaching {@attachment} for {@msg}", attachment, ForLog(msg));
+                throw new ArgumentException("Attachment is missing a filename");
+            }
 
-                if (String.IsNullOrWhiteSpace(attachment.Uri))
+            if (String.IsNullOrWhiteSpace(attachment.Uri) && String.IsNullOrWhiteSpace(attachment.Content))
+            {
+                throw new ArgumentException("Attachment does not have content");
+            }
+
+            using (Log.Timer("Attaching {@attachment} for {@msg}", attachment, ForLog(msg)))
+            {
+                byte[] data = new byte[] { };
+
+                if (!String.IsNullOrWhiteSpace(attachment.Content))
                 {
-                    Log.Warn("No Url provided for attachment, skipping");
-                    return;
+                    // Attach the content decoded from Base64
+
+                    data = Convert.FromBase64String(attachment.Content);
                 }
 
-                if (String.IsNullOrWhiteSpace(attachment.Filename))
+                if (!String.IsNullOrWhiteSpace(attachment.Uri))
                 {
-                    Log.Warn("No filename provided for attachment, using default");
-                    attachment.Filename = "Attachment.pdf";
-                }
+                    using (HttpClient client = new HttpClient(new HttpClientHandler { AllowAutoRedirect = true }) { Timeout = DownloadTimeout })
+                    {
+                        // Attach the file downloaded
 
-                byte[] data = await client.GetByteArrayAsync(attachment.Uri).ConfigureAwait(false);
+                        data = await client.GetByteArrayAsync(attachment.Uri).ConfigureAwait(false);
+                    }
+                }
 
                 // MailMessage disposes of the attachment stream when it disposes
 
                 msg.Attachments.Add(new Attachment(new MemoryStream(data), attachment.Filename));
-
-                Log.Info("Completed attachment for {@msg}", ForLog(msg));
             }
         }
 
