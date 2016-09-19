@@ -59,7 +59,6 @@
     <Compile Include="Notifications\ISMSService.cs" />
     <Compile Include="Notifications\NoOpNotificationSender.cs" />
     <Compile Include="Notifications\Notification.cs" />
-    <Compile Include="Notifications\QueuedSender.cs" />
     <Compile Include="Notifications\ServiceSender.cs" />
     <Compile Include="Notifications\SMSNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
