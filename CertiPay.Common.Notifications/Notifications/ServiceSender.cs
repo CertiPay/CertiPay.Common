@@ -15,14 +15,13 @@ namespace CertiPay.Notifications
 
         public readonly Uri ServiceUri;
 
-        public TimeSpan Timeout { get; set; }
+        public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(3);
 
         private readonly JsonSerializer Serializer = new JsonSerializer();
 
         public ServiceSender(Uri serviceUri)
         {
             this.ServiceUri = serviceUri;
-            this.Timeout = TimeSpan.FromSeconds(3);
         }
 
         public ServiceSender(String serviceUri) : this(new Uri(serviceUri))
@@ -30,7 +29,7 @@ namespace CertiPay.Notifications
             // Nothing to do here
         }
 
-        public ServiceSender() : this("http://localhost:8081")
+        public ServiceSender() : this("http://notifications.certipay.com")
         {
             // Nothing to do here
         }
@@ -78,6 +77,7 @@ namespace CertiPay.Notifications
         {
             await SendAsync(notification, CancellationToken.None);
         }
+
         public virtual async Task SendAsync(iOSNotification notification, CancellationToken token)
         {
             using (Log.Timer("ServiceSender.SendAsync", warnIfExceeds: this.Timeout))
