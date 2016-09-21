@@ -40,9 +40,6 @@ namespace CertiPay.Common.Notifications
         Task SendAsync(MailMessage message, CancellationToken token);
     }
 
-    /// <summary>
-    ///
-    /// </summary>
     public class EmailService : IEmailService
     {
         private static readonly ILog Log = LogManager.GetLogger<IEmailService>();
@@ -126,8 +123,6 @@ namespace CertiPay.Common.Notifications
                 FilterRecipients(message.Bcc);
 
                 _smtp.Send(message);
-
-                Log.Info("Sent email {@message}", message);
             }
         }
 
@@ -142,13 +137,7 @@ namespace CertiPay.Common.Notifications
             FilterRecipients(message.CC);
             FilterRecipients(message.Bcc);
 
-            await _smtp
-                .SendMailAsync(message)
-                .ContinueWith(result =>
-                {
-                    Log.Info("Sent email {@message} ({status})", ForLog(message), result.Status);
-                })
-                .ConfigureAwait(false);
+            await _smtp.SendMailAsync(message).ConfigureAwait(false);
         }
 
         public virtual void FilterRecipients(MailAddressCollection addresses)
