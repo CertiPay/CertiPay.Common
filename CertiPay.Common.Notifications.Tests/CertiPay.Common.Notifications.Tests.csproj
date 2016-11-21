@@ -53,6 +53,10 @@
       <Project>{80a345b7-1f15-4d8b-8a45-d068e4c24138}</Project>
       <Name>CertiPay.Common.Notifications</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CertiPay.Common.Testing\CertiPay.Common.Testing.csproj">
+      <Project>{68F69CCB-24EA-46FF-AAA1-EA8607E6401A}</Project>
+      <Name>CertiPay.Common.Testing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CertiPay.Common\CertiPay.Common.csproj">
       <Project>{a92be565-b277-4d94-a782-b9c2f0162c35}</Project>
       <Name>CertiPay.Common</Name>
