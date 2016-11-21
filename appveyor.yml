@@ -41,6 +41,9 @@ build:
 test:
   assemblies:
     - CertiPay.Common.Tests.dll
+  categories:
+    except:
+	  - Integration
 
 #---------------------------------#
 #       artifacts configuration   #
