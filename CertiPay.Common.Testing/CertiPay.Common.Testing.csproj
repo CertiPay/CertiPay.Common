@@ -86,7 +86,6 @@
     <Compile Include="UnitAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="CertiPay.Common.Testing.nuspec" />
     <None Include="packages.config" />
     <None Include="README.md" />
