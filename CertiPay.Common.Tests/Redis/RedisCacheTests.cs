@@ -1,6 +1,7 @@
 ﻿using CertiPay.Common.Cache;
 using CertiPay.Common.Logging;
 using CertiPay.Common.Redis;
+using CertiPay.Common.Testing;
 using NUnit.Framework;
 using System;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace CertiPay.Services.Redis
     {
         private static readonly ILog Log = LogManager.GetLogger<RedisCacheTests>();
 
-        [Test]
+        [Test, Integration]
         public void Run_Redis_Simple_Load_Tests()
         {
             const int iterations = 1000;

@@ -67,6 +67,10 @@
     <Compile Include="WorkQueue\InMemoryQueueManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CertiPay.Common.Testing\CertiPay.Common.Testing.csproj">
+      <Project>{68F69CCB-24EA-46FF-AAA1-EA8607E6401A}</Project>
+      <Name>CertiPay.Common.Testing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CertiPay.Common\CertiPay.Common.csproj">
       <Project>{a92be565-b277-4d94-a782-b9c2f0162c35}</Project>
       <Name>CertiPay.Common</Name>

@@ -1,5 +1,6 @@
 ﻿using CertiPay.Common.Logging;
 using CertiPay.Common.Redis;
+using CertiPay.Common.Testing;
 using CertiPay.Common.WorkQueue;
 using NUnit.Framework;
 using System;
@@ -26,7 +27,7 @@ namespace CertiPay.Services.Redis
             queue = new RedisQueueManager(conn);
         }
 
-        [Test]
+        [Test, Integration]
         public void Should_Enqueue_Items()
         {
             // Act
@@ -40,7 +41,7 @@ namespace CertiPay.Services.Redis
             Assert.IsTrue(item.Created > DateTime.UtcNow.AddSeconds(-2));
         }
 
-        [Test]
+        [Test, Integration]
         public void Should_Enqueue_Items_Performance_Test()
         {
             // Arrange
@@ -80,7 +81,7 @@ namespace CertiPay.Services.Redis
             }
         }
 
-        [Test]
+        [Test, Integration]
         public void Should_Consume_Until_Empty()
         {
             // Act
@@ -103,7 +104,7 @@ namespace CertiPay.Services.Redis
             Assert.AreEqual(range, count);
         }
 
-        [Test]
+        [Test, Integration]
         public void Should_Batch_Work_Dequeue()
         {
             var range = 1000;
@@ -130,7 +131,7 @@ namespace CertiPay.Services.Redis
             Assert.AreEqual(batches, batch_count);
         }
 
-        [Test]
+        [Test, Integration]
         public void Should_Batch_Work_Uneven_Batch()
         {
             var range = 13;
