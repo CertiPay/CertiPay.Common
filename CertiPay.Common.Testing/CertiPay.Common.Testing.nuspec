@@ -11,8 +11,8 @@
     <authors>CertiPay, Matt Wagner</authors>
     <owners>Matt Wagner</owners>
     <dependencies>
-      <dependency id="NUnit" version="3.2.1" />
-      <dependency id="NUnit3TestAdapter" version="3.2.0" />
+      <dependency id="NUnit" version="3.5.0" />
+      <dependency id="NUnit3TestAdapter" version="3.6.0" />
       <dependency id="Moq" version="4.2.1507.0118" />
       <dependency id="AutoFixture" version="3.31.3" />
       <dependency id="ApprovalTests" version="3.0.9" />
