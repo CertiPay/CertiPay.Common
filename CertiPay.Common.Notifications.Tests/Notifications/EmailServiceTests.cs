@@ -1,4 +1,5 @@
 ﻿using CertiPay.Common.Notifications;
+using CertiPay.Common.Testing;
 using NUnit.Framework;
 using System;
 using System.Net.Mail;
@@ -9,7 +10,7 @@ namespace CertiPay.Services.Notifications
 {
     public class EmailServiceTests
     {
-        [Test]
+        [Test, Integration]
         [TestCase("mattgwagner@gmail.com")]
         [TestCase("mwagner@certipayyyy.com")]
         [TestCase("IAmACustomer@Hotmail.com")]
@@ -25,6 +26,7 @@ namespace CertiPay.Services.Notifications
             }
         }
 
+        [Test, Integration]
         [TestCase("mattgwagner@gmail.com")]
         [TestCase("jsmith@worksafepays.com")]
         [TestCase("jsmith@certipay.com")]
@@ -43,6 +45,7 @@ namespace CertiPay.Services.Notifications
             }
         }
 
+        [Test, Integration]
         [TestCase("mattgwagner@gmail.com")]
         [TestCase("jsmith@worksafepays.com")]
         [TestCase("jsmith@certipay.com")]
@@ -61,6 +64,7 @@ namespace CertiPay.Services.Notifications
             }
         }
 
+        [Test, Integration]
         [TestCase("jthomas@certipay.com")]
         public async Task Test_Async_Send(string email)
         {
@@ -74,6 +78,7 @@ namespace CertiPay.Services.Notifications
             }
         }
 
+        [Test, Integration]
         [TestCase("jthomas@certipay.com")]
         public async Task Test_Async_Send_Cancellation(string email)
         {
