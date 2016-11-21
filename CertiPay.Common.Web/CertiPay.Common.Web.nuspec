@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>CertiPay.Common.Web</id>
-    <version>1.0.0</version>
-    <title>CertiPay.Common.Web</title>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$id$</title>
     <tags>certipay, utilities</tags>
     <description>
       This is inspired and takes greatly from Phil Haack's mvc-metadata-conventions package (https://github.com/Haacked/mvc-metadata-conventions)

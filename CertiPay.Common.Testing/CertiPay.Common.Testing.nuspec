@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>CertiPay.Common.Testing</id>
-    <version>1.0.0</version>
-    <title>CertiPay.Common.Testing</title>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$id$</title>
     <tags>certipay, utilities, nunit, testing</tags>
     <description>A project with the test libraries and some helpers used in CertiPay</description>
     <projectUrl>https://github.com/CertiPay/CertiPay.Common</projectUrl>
