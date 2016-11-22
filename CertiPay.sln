@@ -7,10 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertiPay.Common", "CertiPay
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{19D3C94B-86E5-4495-98C3-EDE351AA64ED}"
 	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
 		appveyor.yml = appveyor.yml
-		Build.bat = Build.bat
-		.build\Build.ps1 = .build\Build.ps1
-		.build\Test.ps1 = .build\Test.ps1
+		Build.ps1 = Build.ps1
+		Test.ps1 = Test.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{150A9545-333E-4165-9205-8FD29B16FAF0}"

@@ -14,25 +14,23 @@ $ErrorActionPreference = "Stop"
 
 $Here = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
-$SolutionRoot = (Split-Path -parent $Here)
-
-$NuGet = Join-Path $SolutionRoot ".nuget\nuget.exe"
+$NuGet = Join-Path $Here ".nuget\nuget.exe"
 
 $NUnitVersion = "3.5.0"
-$NUnit = Join-Path $SolutionRoot "packages\NUnit.ConsoleRunner.$NUnitVersion\tools\nunit3-console.exe"
+$NUnit = Join-Path $Here "packages\NUnit.ConsoleRunner.$NUnitVersion\tools\nunit3-console.exe"
 
 # Get any assembly matching "CertiPay.*.Tests.dll" for now
 
-$TestProjects = Get-ChildItem -Path "$SolutionRoot\**\bin\$Configuration" -Recurse -Include "CertiPay.*.Tests.dll"
+$TestProjects = Get-ChildItem -Path "$Here\**\bin\$Configuration" -Recurse -Include "CertiPay.*.Tests.dll"
 
 # Install the NUnit Runner
 
 if(!(Test-Path $NUnit))
 {
-	& $NuGet install NUnit.Console -version $NUnitVersion -OutputDirectory "$SolutionRoot\packages"
+	& $NuGet install NUnit.Console -version $NUnitVersion -OutputDirectory "$Here\packages"
 }
 
-$Output = "$SolutionRoot\UnitTestResults.xml"
+$Output = "$Here\UnitTestResults.xml"
 
 # Run the unit tests in all of the test projects
 # The task is set to run everything except tests marked [Integration] or [Category("Integration")]
