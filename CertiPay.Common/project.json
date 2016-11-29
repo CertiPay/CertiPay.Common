@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "Serilog": "2.3.0",
+    "Serilog.Sinks.ColoredConsole": "2.0.0",
+    "Serilog.Settings.AppSettings": "2.0.0",
+    "Serilog.Enrichers.Environment":  "2.1.1",
+    "Serilog.Sinks.RollingFile": "3.2.0",
+    "StackExchange.Redis": "1.1.608",
+    "Newtonsoft.Json": "9.0.1"
+  },
+  "frameworks": {
+    "net461": {
+      "frameworkAssemblies": {
+        "System.ComponentModel.DataAnnotations": "4.0.0.0",
+        "System.Runtime.Caching": "4.0.0.0",
+        "System.ServiceModel": "4.0.0.0",
+        "System.Transactions": "4.0.0.0",
+        "System.Runtime": "4.0.20.0",
+        "System.Configuration": "4.0.0.0"
+      }
+    }
+  },
+  "version": "4.0.0-*"
+}

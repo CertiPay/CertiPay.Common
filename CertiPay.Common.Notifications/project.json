@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "RestSharp": "105.2.2",
+    "Twilio": "4.7.2",
+    "CertiPay.Common": "3.1.15"
+  },
+  "frameworks": {
+    "net461": {
+      "frameworkAssemblies": {
+        "System.Net.Http": "4.0.0.0",
+        "System.Text.Encoding": "4.0.10.0"
+      }
+    }
+  },
+  "version": "4.0.0-*"
+}

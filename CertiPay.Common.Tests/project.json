@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "dotnet-test-nunit": "3.4.0-beta-3",
+    "NUnit": "3.5.0",
+    "NUnit.Console": "3.5.0",
+    "CertiPay.Common": "3.1.15",
+    "CertiPay.Common.Testing": "3.1.15"
+  },
+  "frameworks": {
+    "net461": {}
+  },
+  "testRunner": "nunit",
+  "version": "1.0.0-*"
+}

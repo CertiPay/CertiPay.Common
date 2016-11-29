@@ -1,4 +1,5 @@
 ﻿using CertiPay.Common.Cache;
+using Newtonsoft.Json;
 using StackExchange.Redis;
 using System;
 using System.Threading.Tasks;
@@ -65,19 +66,19 @@ namespace CertiPay.Common.Redis
 
             if (String.IsNullOrWhiteSpace(json)) return false;
 
-            value = json.FromJson<T>();
+            value = JsonConvert.DeserializeObject<T>(json);
 
             return true;
         }
 
         public void Add<T>(string key, T value)
         {
-            _connection.GetClient().StringSet(key, value.ToJson());
+            _connection.GetClient().StringSet(key, JsonConvert.SerializeObject(value));
         }
 
         public async Task AddAsync<T>(string key, T value)
         {
-            await _connection.GetClient().StringSetAsync(key, value.ToJson()).ConfigureAwait(false);
+            await _connection.GetClient().StringSetAsync(key, JsonConvert.SerializeObject(value)).ConfigureAwait(false);
         }
 
         public async Task Remove(string key)
