@@ -42,6 +42,9 @@ artifacts:
 test:
   assemblies:
     - '**\bin\$(Configuration)\**\win7-x64\CertiPay.**.Tests.dll'
+  categories:
+    except:
+      - 'Integration'
 
 #---------------------------------#
 #       artifacts configuration   #
