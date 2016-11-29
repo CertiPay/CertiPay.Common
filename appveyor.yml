@@ -52,6 +52,6 @@ test:
 deploy:
 - provider: NuGet
   on: 
-    branch: v3.x
+    branch: master
   api_key:
     secure: tj8axlUnLaJXMzsVHzNj6dT8VROvH1ChDSv9bKkQG4oNRB/6pI4oefW5WAhuIDIE
