@@ -72,12 +72,12 @@
 
             Serilog.Log.Logger =
                 new LoggerConfiguration()
-                    //.ReadFrom.AppSettings()
+                    .ReadFrom.AppSettings()
 
                     .MinimumLevel.Is(GetLevel(LogManager.LogLevel))
 
                     .Enrich.FromLogContext()
-                    //.Enrich.WithMachineName()
+                    .Enrich.WithMachineName()
 
                     // Note: These properties come from the application config file
                     .Enrich.WithProperty("ApplicationName", LogManager.ApplicationName)

@@ -2,6 +2,8 @@
   "dependencies": {
     "Serilog": "2.3.0",
     "Serilog.Sinks.ColoredConsole": "2.0.0",
+    "Serilog.Settings.AppSettings": "2.0.0",
+    "Serilog.Enrichers.Environment":  "2.1.1",
     "Serilog.Sinks.RollingFile": "3.2.0",
     "StackExchange.Redis": "1.1.608",
     "Newtonsoft.Json": "9.0.1"
