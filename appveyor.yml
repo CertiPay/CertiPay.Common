@@ -40,7 +40,7 @@ build:
 
 test:
   assemblies:
-    - '**\*.tests.dll'
+    - '**\bin\$(Configuration)\**\win7-x64\CertiPay.**.Tests.dll'
   categories:
     except:
       - 'Integration'
