@@ -6,8 +6,7 @@
 #   - All section names are case-sensitive.
 #   - Section names should be unique on each level.
 
-# version format
-version: 4.0.0-alpha{build}
+version: {build}
 
 shallow_clone: true
 
