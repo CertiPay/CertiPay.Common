@@ -2,7 +2,9 @@
   "dependencies": {
     "RestSharp": "105.2.2",
     "Twilio": "4.7.2",
-    "CertiPay.Common": "3.1.15"
+    "CertiPay.Common": {
+       "target": "project"
+      }
   },
   "frameworks": {
     "net461": {
