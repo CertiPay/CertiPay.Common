@@ -9,10 +9,10 @@
   "frameworks": {
     "net461": {
       "frameworkAssemblies": {
-        "System.Net.Http": "4.0.0.0",
-        "System.Text.Encoding": "4.0.10.0"
+        "System.Net.Http": "",
+        "System.Text.Encoding": ""
       }
     }
   },
-  "version": "4.0.2-*"
+  "version": "4.0.3-*"
 }

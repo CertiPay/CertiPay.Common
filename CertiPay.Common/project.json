@@ -11,17 +11,16 @@
   "frameworks": {
     "net461": {
       "frameworkAssemblies": {
-        "System.ComponentModel.DataAnnotations": "4.0.0.0",
-        "System.Runtime.Caching": "4.0.0.0",
-        "System.ServiceModel": "4.0.0.0",
-        "System.Transactions": "4.0.0.0",
+        "System.ComponentModel.DataAnnotations": "",
+        "System.Runtime.Caching": "",
+        "System.ServiceModel": "",
+        "System.Transactions": "",
         "System.Runtime": {
-          "version": "4.0.20.0",
           "type": "build"
         },
-        "System.Configuration": "4.0.0.0"
+        "System.Configuration": ""
       }
     }
   },
-  "version": "4.0.2-*"
+  "version": "4.0.3-*"
 }

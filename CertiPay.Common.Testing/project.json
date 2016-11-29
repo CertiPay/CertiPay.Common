@@ -11,9 +11,9 @@
   "frameworks": {
     "net461": {
       "frameworkAssemblies": {
-        "System.Transactions": "4.0.0.0"
+        "System.Transactions": ""
       }
     }
   },
-  "version": "4.0.2-*"
+  "version": "4.0.3-*"
 }
