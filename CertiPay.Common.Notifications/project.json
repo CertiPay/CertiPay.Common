@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "RestSharp": "105.2.2",
+    "Twilio": "4.7.2"
+  },
+  "frameworks": {
+    "net461": {}
+  },
+  "version": "1.0.0-*"
+}
