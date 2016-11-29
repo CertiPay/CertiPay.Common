@@ -72,12 +72,12 @@
 
             Serilog.Log.Logger =
                 new LoggerConfiguration()
-                    .ReadFrom.AppSettings()
+                    //.ReadFrom.AppSettings()
 
                     .MinimumLevel.Is(GetLevel(LogManager.LogLevel))
 
                     .Enrich.FromLogContext()
-                    .Enrich.WithMachineName()
+                    //.Enrich.WithMachineName()
 
                     // Note: These properties come from the application config file
                     .Enrich.WithProperty("ApplicationName", LogManager.ApplicationName)
@@ -85,10 +85,6 @@
                     .Enrich.WithProperty("Environment", EnvUtil.Current)
 
                     .WriteTo.ColoredConsole()
-
-#if DEBUG
-                    .WriteTo.Sink(new Serilog.Sinks.RollingFile.RollingFileSink(@"c:\logs\out.json", new Serilog.Formatting.Json.JsonFormatter { }, null, null, null))
-#endif
 
                     .WriteTo.RollingFile(
                         // Environment, ApplicationName, and date are already in the folder\file name
