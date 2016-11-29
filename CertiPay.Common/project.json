@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "Serilog": "1.5.14",
-    "SerilogWeb.Classic": "2.0.10",
     "StackExchange.Redis": "1.1.608",
     "Newtonsoft.Json": "9.0.1"
   },
