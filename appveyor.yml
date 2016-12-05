@@ -14,14 +14,12 @@ shallow_clone: true
 #       build configuration       #
 #---------------------------------#
 
-# build platform, i.e. x86, x64, Any CPU. This setting is optional.
-platform: Any CPU
-
 # build Configuration, i.e. Debug, Release, etc.
 configuration: Release
 
 before_build:
 - dotnet restore -v Minimal
+- ps: .\Update-Version.ps1 -Version $env:APPVEYOR_BUILD_VERSION
 
 build_script:
 - dotnet build */**/project.json --configuration %CONFIGURATION%
