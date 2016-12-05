@@ -8,7 +8,7 @@ $Projects = Get-ChildItem -Path $Here -Recurse -Include "project.json"
 
 foreach($Project in $Projects)
 {
-	$JSON = (Get-Content $Project) -join "`n" | ConvertFrom-Json
+	$JSON = (Get-Content $Project) | ConvertFrom-Json
 
 	$JSON.version = $Version
 
