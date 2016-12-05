@@ -12,5 +12,5 @@ foreach($Project in $Projects)
 
 	$JSON.version = $Version
 
-	ConvertTo-Json $JSON | Out-File $Project -Encoding utf8
+	ConvertTo-Json $JSON -Depth 10 | Out-File $Project -Encoding utf8
 }
