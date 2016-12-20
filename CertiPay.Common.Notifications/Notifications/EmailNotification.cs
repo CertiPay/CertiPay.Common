@@ -35,6 +35,8 @@ namespace CertiPay.Common.Notifications
         /// </summary>
         public ICollection<Attachment> Attachments { get; set; } = new List<Attachment>();
 
+        public EmailFormat EmailType { get; set; }
+
         /// <summary>
         /// A file may be attached to the email notification
         /// </summary>
@@ -54,6 +56,12 @@ namespace CertiPay.Common.Notifications
             /// If provided, an addressable URI from which the service can download the attachment
             /// </summary>
             public String Uri { get; set; }
+        }
+
+        public enum EmailFormat
+        {
+            HTML,
+            Plain
         }
     }
 }
