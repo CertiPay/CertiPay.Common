@@ -103,7 +103,8 @@ namespace CertiPay.Common.Notifications
 
                 msg.Subject = notification.Subject;
                 msg.Body = notification.Content;
-                msg.IsBodyHtml = true;
+               
+                msg.IsBodyHtml = (notification.EmailType == EmailNotification.EmailFormat.HTML);                
 
                 foreach (var attachment in notification.Attachments)
                 {

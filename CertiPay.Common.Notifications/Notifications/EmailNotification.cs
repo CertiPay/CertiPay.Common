@@ -36,6 +36,11 @@ namespace CertiPay.Common.Notifications
         public ICollection<Attachment> Attachments { get; set; } = new List<Attachment>();
 
         /// <summary>
+        /// Set the email format type to HTML or PlainText, default is HTML.
+        /// </summary>
+        public EmailFormat EmailType { get; set; } = EmailFormat.HTML;
+
+        /// <summary>
         /// A file may be attached to the email notification
         /// </summary>
         public class Attachment
@@ -54,6 +59,12 @@ namespace CertiPay.Common.Notifications
             /// If provided, an addressable URI from which the service can download the attachment
             /// </summary>
             public String Uri { get; set; }
+        }
+
+        public enum EmailFormat
+        {
+            HTML,
+            PlainText
         }
     }
 }
