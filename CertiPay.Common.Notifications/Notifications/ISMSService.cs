@@ -43,7 +43,14 @@ namespace CertiPay.Common.Notifications
                 foreach (var recipient in notification.Recipients)
                 {
                     if (!token.IsCancellationRequested)
-                        client.SendMessage(fromNumber, recipient, notification.Content);
+                    {
+                        var message = client.SendMessage(fromNumber, recipient, notification.Content);
+
+                        if (message.RestException != null && !String.IsNullOrWhiteSpace(message.RestException.Message))
+                        {
+                            throw new Exception($"{message.RestException.Code}: {message.RestException.Message} (see also: {message.RestException.MoreInfo})");
+                        }
+                    }
                 }
 
                 return Task.FromResult(0);
