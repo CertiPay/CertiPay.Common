@@ -43,7 +43,7 @@ namespace CertiPay.Common.Notifications
                 foreach (var recipient in notification.Recipients)
                 {
                     if (!token.IsCancellationRequested)
-                        Client.SendSmsMessage(_twilioSourceNumber, recipient, notification.Content);
+                        Client.SendMessage(_twilioSourceNumber, recipient, notification.Content);
                 }
 
                 return Task.FromResult(0);
