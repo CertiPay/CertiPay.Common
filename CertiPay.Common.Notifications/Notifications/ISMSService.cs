@@ -21,14 +21,14 @@ namespace CertiPay.Common.Notifications
     {
         private static readonly ILog Log = LogManager.GetLogger<ISMSService>();
 
-        private TwilioRestClient Client { get; }
+        private TwilioRestClient client { get; }
 
-        private readonly String _twilioSourceNumber;
+        private readonly String fromNumber;
 
         public SmsService(TwilioConfig config)
         {
-            Client = new TwilioRestClient(config.AccountSid, config.AuthToken);
-            this._twilioSourceNumber = config.SourceNumber;
+            this.client = new TwilioRestClient(config.AccountSid, config.AuthToken);
+            this.fromNumber = config.SourceNumber;
         }
 
         public Task SendAsync(SMSNotification notification)
@@ -43,7 +43,7 @@ namespace CertiPay.Common.Notifications
                 foreach (var recipient in notification.Recipients)
                 {
                     if (!token.IsCancellationRequested)
-                        Client.SendMessage(_twilioSourceNumber, recipient, notification.Content);
+                        client.SendMessage(fromNumber, recipient, notification.Content);
                 }
 
                 return Task.FromResult(0);
