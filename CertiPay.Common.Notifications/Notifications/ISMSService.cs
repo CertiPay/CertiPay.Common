@@ -48,6 +48,8 @@ namespace CertiPay.Common.Notifications
 
                         if (message.RestException != null && !String.IsNullOrWhiteSpace(message.RestException.Message))
                         {
+                            // TODO We ought to wrap this in a lib specific exception rather than generic Exception
+
                             throw new Exception($"{message.RestException.Code}: {message.RestException.Message} (see also: {message.RestException.MoreInfo})");
                         }
                     }
