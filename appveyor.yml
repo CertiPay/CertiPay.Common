@@ -33,6 +33,9 @@ artifacts:
 #---------------------------------#
 
 test:
+  categories:
+    except:
+      - Integration
   assemblies:
     - '**\bin\$(Configuration)\**\CertiPay.Common.Tests.dll'
 
