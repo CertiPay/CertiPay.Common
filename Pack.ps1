@@ -12,6 +12,10 @@ $Output = Join-Path $Here "artifacts"
 
 $DotNet = "${env:ProgramFiles}\dotnet\dotnet.exe"
 
-& $DotNet pack "CertiPay.Taxes.State" --configuration $Configuration --output $Output /p:Version=$Version
+& $DotNet pack "CertiPay.Common" --configuration $Configuration --output $Output /p:Version=$Version
+
+& $DotNet pack "CertiPay.Common.Notifications" --configuration $Configuration --output $Output /p:Version=$Version
+
+& $DotNet pack "CertiPay.Common.Testing" --configuration $Configuration --output $Output /p:Version=$Version
 
 EXIT $LASTEXITCODE

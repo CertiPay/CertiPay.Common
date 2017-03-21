@@ -10,7 +10,7 @@ $ErrorActionPreference = "Stop"
 
 $Here = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
-$SolutionFile = Join-Path $Here "CertiPay.Common.sln"
+$SolutionFile = Join-Path $Here "CertiPay.sln"
 
 $DotNet = "${env:ProgramFiles}\dotnet\dotnet.exe"
 
