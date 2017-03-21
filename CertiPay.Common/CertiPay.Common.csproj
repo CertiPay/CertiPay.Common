@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <VersionPrefix>4.0.3</VersionPrefix>
+    <TargetFramework>net461</TargetFramework>
+    <AssemblyName>CertiPay.Common</AssemblyName>
+    <PackageId>CertiPay.Common</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.3.0" />
+    <PackageReference Include="Serilog.Sinks.ColoredConsole" Version="2.0.0" />
+    <PackageReference Include="Serilog.Settings.AppSettings" Version="2.0.0" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.1.1" />
+    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.2.0" />
+    <PackageReference Include="StackExchange.Redis" Version="1.1.608" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <VersionPrefix>4.0.3</VersionPrefix>
+    <TargetFramework>net461</TargetFramework>
+    <AssemblyName>CertiPay.Common.Testing</AssemblyName>
+    <PackageId>CertiPay.Common.Testing</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CertiPay.Common\CertiPay.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.5.0" />
+    <PackageReference Include="NUnit.Console" Version="3.5.0" />
+    <PackageReference Include="AutoFixture" Version="3.31.3" />
+    <PackageReference Include="ApprovalTests" Version="3.0.9" />
+    <PackageReference Include="ApprovalUtilities" Version="3.0.9" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="EntityFramework" Version="6.1.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System.Transactions" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>
