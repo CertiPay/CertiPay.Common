@@ -6,7 +6,10 @@
 #   - All section names are case-sensitive.
 #   - Section names should be unique on each level.
 
-version: 4.0.{build}
+image: Visual Studio 2017
+
+# version format
+version: 4.1.{build}
 
 shallow_clone: true
 
@@ -14,23 +17,16 @@ shallow_clone: true
 #       build configuration       #
 #---------------------------------#
 
-# build Configuration, i.e. Debug, Release, etc.
 configuration: Release
 
-before_build:
-- dotnet restore -v Minimal
-- ps: .\Update-Version.ps1 -Version $env:APPVEYOR_BUILD_VERSION
-
 build_script:
-- dotnet build */**/project.json --configuration %CONFIGURATION%
+- ps: .\Build.ps1 -Configuration Release
 
 after_build:
-- dotnet pack "CertiPay.Common" --configuration %CONFIGURATION% -o artifacts
-- dotnet pack "CertiPay.Common.Notifications" --configuration %CONFIGURATION% -o artifacts
-- dotnet pack "CertiPay.Common.Testing" --configuration %CONFIGURATION% -o artifacts
+- ps: .\Pack.ps1 -Configuration Release -Version $env:APPVEYOR_BUILD_VERSION
 
 artifacts:
-- path: artifacts\**\*.*
+- path: artifacts\**\CertiPay.Common.*.nupkg
 
 #---------------------------------#
 #       tests configuration       #
@@ -38,10 +34,7 @@ artifacts:
 
 test:
   assemblies:
-    - '**\bin\$(Configuration)\**\win7-x64\CertiPay.**.Tests.dll'
-  categories:
-    except:
-      - 'Integration'
+    - '**\bin\$(Configuration)\**\CertiPay.Common.Tests.dll'
 
 #---------------------------------#
 #       artifacts configuration   #
