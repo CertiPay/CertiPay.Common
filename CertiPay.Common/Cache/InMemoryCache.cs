@@ -58,7 +58,9 @@ namespace CertiPay.Common.Cache
             string nothing = string.Empty;
 
             MemoryCache.Default.Remove(key);
+
             keys.TryRemove(key, out nothing);
+
             return Task.FromResult(0);
         }
 
@@ -69,7 +71,7 @@ namespace CertiPay.Common.Cache
 
         public void Add<T>(String key, T val, TimeSpan expiration)
         {
-            MemoryCache.Default.Add(key, val, DateTime.Now.Add(expiration));
+            MemoryCache.Default.Set(key, val, DateTime.Now.Add(expiration));
             keys.TryAdd(key, String.Empty);
         }
 
