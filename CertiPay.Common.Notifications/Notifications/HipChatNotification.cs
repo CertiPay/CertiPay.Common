@@ -18,7 +18,7 @@ namespace CertiPay.Common.Notifications
         /// <summary>
         /// Defaults to Html
         /// </summary>
-        public MessageFormat Format { get; set; } = MessageFormat.Html;
+        public MessageFormat Format { get; set; } = MessageFormat.text;
 
         public enum MessageFormat
         {
@@ -27,13 +27,13 @@ namespace CertiPay.Common.Notifications
             /// Must be valid HTMl and entities must be escaped. May contain basic tags:
             /// a, b, i, strong, em, br, img, pre, code, lists, tables.
             /// </summary>
-            Html,
+            html,
 
             /// <summary>
             /// Message is treated just like a message sent by a user. Can include @mentions, emoticons,
             /// pastes, and auto-detected URLs.
             /// </summary>
-            Text
+            text
         }
 
         public enum TextColor { yellow, green, red, purple, gray, random }
