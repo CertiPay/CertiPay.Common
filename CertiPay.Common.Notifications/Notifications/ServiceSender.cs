@@ -15,7 +15,7 @@ namespace CertiPay.Notifications
 
         public readonly Uri ServiceUri;
 
-        public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(3);
+        private static TimeSpan Timeout => TimeSpan.FromSeconds(1);
 
         private readonly JsonSerializer Serializer = new JsonSerializer();
 
@@ -41,7 +41,7 @@ namespace CertiPay.Notifications
 
         public async Task SendAsync(SMSNotification notification, CancellationToken token)
         {
-            using (Log.Timer("ServiceSender.SendAsync", warnIfExceeds: this.Timeout))
+            using (Log.Timer("ServiceSender.SendAsync", warnIfExceeds: Timeout))
             {
                 await Post("/SMS", notification, token);
             }
@@ -54,7 +54,7 @@ namespace CertiPay.Notifications
 
         public async Task SendAsync(EmailNotification notification, CancellationToken token)
         {
-            using (Log.Timer("ServiceSender.SendAsync", warnIfExceeds: this.Timeout))
+            using (Log.Timer("ServiceSender.SendAsync", warnIfExceeds: Timeout))
             {
                 await Post("/Emails", notification, token);
             }
@@ -67,7 +67,7 @@ namespace CertiPay.Notifications
 
         public virtual async Task SendAsync(AndroidNotification notification, CancellationToken token)
         {
-            using (Log.Timer("ServiceSender.SendAsync", warnIfExceeds: this.Timeout))
+            using (Log.Timer("ServiceSender.SendAsync", warnIfExceeds: Timeout))
             {
                 await Post("/Android", notification, token);
             }
@@ -80,7 +80,7 @@ namespace CertiPay.Notifications
 
         public virtual async Task SendAsync(iOSNotification notification, CancellationToken token)
         {
-            using (Log.Timer("ServiceSender.SendAsync", warnIfExceeds: this.Timeout))
+            using (Log.Timer("ServiceSender.SendAsync", warnIfExceeds: Timeout))
             {
                 await Post("/iOS", notification, token);
             }
@@ -93,7 +93,7 @@ namespace CertiPay.Notifications
 
         public virtual async Task SendAsync(HipChatNotification notification, CancellationToken token)
         {
-            using (Log.Timer("ServiceSender.SendAsync", warnIfExceeds: this.Timeout))
+            using (Log.Timer("ServiceSender.SendAsync", warnIfExceeds: Timeout))
             {
                 await Post("/hipChat", notification, token);
             }
@@ -110,7 +110,7 @@ namespace CertiPay.Notifications
 
         protected virtual HttpClient GetClient()
         {
-            return new HttpClient() { BaseAddress = this.ServiceUri, Timeout = this.Timeout };
+            return new HttpClient() { BaseAddress = this.ServiceUri };
         }
     }
 }
