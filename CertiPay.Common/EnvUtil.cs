@@ -32,7 +32,7 @@ namespace CertiPay.Common
         /// <summary>
         /// Returns the current executing environment. Defaults to Local if no value is set in the config
         /// </summary>
-        public static Environment Current { get { return current.Value; } }
+        public static Environment Current => current.Value;
 
         /// <summary>
         /// Returns true if the current environment is marked as Environment.Local
