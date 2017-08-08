@@ -72,8 +72,9 @@ namespace CertiPay.Common
                 if (!Enum.TryParse(System.Environment.GetEnvironmentVariable(ENV_FLAG), ignoreCase: true, result: out environment))
                 {
                     // Couldn't parse from the environment, fall back to local and warn the user
+                    // Actually, I can't do that here, since EnvUtil.Current is used in the log setup, so it's a vicious circle
 
-                    LogManager.GetLogger(nameof(EnvUtil)).Warn("Could not parse environment configuration, defaulting to LOCAL");
+                    // LogManager.GetLogger(nameof(EnvUtil)).Warn("Could not parse environment configuration, defaulting to LOCAL");
                 }
             }
 
