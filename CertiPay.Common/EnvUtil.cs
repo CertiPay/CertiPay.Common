@@ -32,32 +32,32 @@ namespace CertiPay.Common
         /// <summary>
         /// Returns the current executing environment. Defaults to Local if no value is set in the config
         /// </summary>
-        public static Environment Current => current.Value;
+        public static Environment Current { get { return current.Value; } }
 
         /// <summary>
         /// Returns true if the current environment is marked as Environment.Local
         /// </summary>
-        public static Boolean IsLocal => Current.HasFlag(Environment.Local);
+        public static Boolean IsLocal { get { return Current.HasFlag(Environment.Local); } }
 
         /// <summary>
         /// Returns true if the current environment is marked as Environment.Development
         /// </summary>
-        public static Boolean IsDevelopment => Current.HasFlag(Environment.Development);
+        public static Boolean IsDevelopment { get { return Current.HasFlag(Environment.Development); } }
 
         /// <summary>
         /// Returns true if the current environment is marked as Environment.Test
         /// </summary>
-        public static Boolean IsTest => Current.HasFlag(Environment.Test);
+        public static Boolean IsTest { get { return Current.HasFlag(Environment.Test); } }
 
         /// <summary>
         /// Returns true if the current environment is marked as Environment.Staging
         /// </summary>
-        public static Boolean IsStaging => Current.HasFlag(Environment.Staging);
+        public static Boolean IsStaging { get { return Current.HasFlag(Environment.Staging); } }
 
         /// <summary>
         /// Returns true if the current environment is marked as Environment.Production
         /// </summary>
-        public static Boolean IsProd => Current.HasFlag(Environment.Production);
+        public static Boolean IsProd { get { return Current.HasFlag(Environment.Production); } }
 
         private static readonly Lazy<Environment> current = new Lazy<Environment>(() =>
         {
