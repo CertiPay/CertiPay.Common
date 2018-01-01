@@ -1,5 +1,6 @@
 using CertiPay.Common.Logging;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 
 namespace CertiPay.Common
@@ -22,7 +23,12 @@ namespace CertiPay.Common
             // ASPNET Core uses Development, Staging, and Production
             // For our purposes, we're going to consider Local and Development the same
 
+            // ToString() on an enum containing multiple definitions with the same value will 
+            // concatenate the values together. Provide an alternative means to display the value
+
+            [Display(Name = "Local")]
             Local = 0,
+            [Display(Name = "Development")]
             Development = Local,
             Test = 1 << 0,
             Staging = 1 << 1,

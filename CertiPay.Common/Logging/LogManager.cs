@@ -143,7 +143,7 @@
 
         private static String GetLogFolder()
         {
-            return Path.Combine(GetLogRootPath(), EnvUtil.Current.ToString(), ApplicationName);
+            return Path.Combine(GetLogRootPath(), EnvUtil.Current.DisplayName(), ApplicationName);
         }
     }
 }

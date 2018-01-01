@@ -87,7 +87,7 @@
                     // Note: These properties come from the application config file
                     .Enrich.WithProperty("ApplicationName", LogManager.ApplicationName)
                     .Enrich.WithProperty("Version", LogManager.Version)
-                    .Enrich.WithProperty("Environment", EnvUtil.Current)
+                    .Enrich.WithProperty("Environment", EnvUtil.Current.DisplayName())
 
                     .WriteTo.ColoredConsole()
 
