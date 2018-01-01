@@ -11,6 +11,7 @@
         internal SerilogManager(String key)
         {
             _logger = Serilog.Log.ForContext("Logger", key);
+            
         }
 
         internal SerilogManager(ILogger logger)
@@ -64,16 +65,20 @@
             }
         }
 
+        public void Dispose()
+        {
+            Serilog.Log.CloseAndFlush();
+        }
+
         static SerilogManager()
         {
             // Provide a default rolling file and console configuration for Serilog
             // User can configure application settings to add on properties or sinks
             // This ensures that the configuration is done once before use
 
-            Serilog.Log.Logger =
-                new LoggerConfiguration()
+            Serilog.Log.Logger =new LoggerConfiguration()
                     .ReadFrom.AppSettings()
-
+                    
                     .MinimumLevel.Is(GetLevel(LogManager.LogLevel))
 
                     .Enrich.FromLogContext()
@@ -91,8 +96,10 @@
                         outputTemplate: "{Timestamp:HH:mm:ss.fff} [{Level}] [{Logger}] {Message}{NewLine}{Exception}",
                         pathFormat: LogManager.LogPathFormat
                     )
-
+                    
                     .CreateLogger();
+            
+
         }
     }
 }

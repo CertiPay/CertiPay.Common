@@ -9,7 +9,7 @@
     /// <remarks>
     /// This interface is inspired after LibLog by DamianH and RavenDB's logging abstractions
     /// </remarks>
-    public interface ILog
+    public interface ILog : IDisposable
     {
         /// <summary>
         /// Log a templated message at the given log level with properties
