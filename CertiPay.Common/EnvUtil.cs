@@ -13,8 +13,6 @@ namespace CertiPay.Common
     /// </summary>
     public static class EnvUtil
     {
-        private const String ENV_FLAG = "ASPNETCORE_ENVIRONMENT";
-
         private const String CONFIG_FLAG = "Environment";
 
         [Flags]
@@ -23,13 +21,7 @@ namespace CertiPay.Common
             // ASPNET Core uses Development, Staging, and Production
             // For our purposes, we're going to consider Local and Development the same
 
-            // ToString() on an enum containing multiple definitions with the same value will 
-            // concatenate the values together. Provide an alternative means to display the value
-
-            [Display(Name = "Local")]
             Local = 0,
-            [Display(Name = "Development")]
-            Development = Local,
             Test = 1 << 0,
             Staging = 1 << 1,
             Production = 1 << 2
@@ -44,11 +36,6 @@ namespace CertiPay.Common
         /// Returns true if the current environment is marked as Environment.Local
         /// </summary>
         public static Boolean IsLocal { get { return Current.HasFlag(Environment.Local); } }
-
-        /// <summary>
-        /// Returns true if the current environment is marked as Environment.Development
-        /// </summary>
-        public static Boolean IsDevelopment { get { return Current.HasFlag(Environment.Development); } }
 
         /// <summary>
         /// Returns true if the current environment is marked as Environment.Test
@@ -70,19 +57,7 @@ namespace CertiPay.Common
             Environment environment = Environment.Local;
 
             // First check the app config, since we might be specifying it there
-
-            if (!Enum.TryParse(ConfigurationManager.AppSettings[CONFIG_FLAG], ignoreCase: true, result: out environment))
-            {
-                // Couldn't parse the config, try the environment variables a la ASPNET Core
-
-                if (!Enum.TryParse(System.Environment.GetEnvironmentVariable(ENV_FLAG), ignoreCase: true, result: out environment))
-                {
-                    // Couldn't parse from the environment, fall back to local and warn the user
-                    // Actually, I can't do that here, since EnvUtil.Current is used in the log setup, so it's a vicious circle
-
-                    // LogManager.GetLogger(nameof(EnvUtil)).Warn("Could not parse environment configuration, defaulting to LOCAL");
-                }
-            }
+            Enum.TryParse(ConfigurationManager.AppSettings[CONFIG_FLAG], ignoreCase: true, result: out environment);
 
             return environment;
         });
