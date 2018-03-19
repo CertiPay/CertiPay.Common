@@ -15,7 +15,7 @@ namespace CertiPay.Notifications
 
         public readonly Uri ServiceUri;
 
-        private static TimeSpan Timeout => TimeSpan.FromSeconds(1);
+        public static TimeSpan Timeout => TimeSpan.FromSeconds(1);
 
         private readonly JsonSerializer Serializer = new JsonSerializer();
 
