@@ -173,7 +173,7 @@ namespace CertiPay.Common.Notifications
                 throw new ArgumentException("Attachment does not have content");
             }
 
-            using (Log.Timer("Attaching {@attachment} for {@msg}", attachment, ForLog(msg)))
+            using (Log.Timer("Attaching {@attachment} for {@msg}", new { attachment.Filename, attachment.Uri }, ForLog(msg)))
             {
                 byte[] data = new byte[] { };
 
