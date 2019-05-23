@@ -2,6 +2,7 @@
 
 namespace CertiPay.Common.Notifications
 {
+    [Obsolete(message: "HipChat is no longer in service")]
     public class HipChatNotification : Notification
     {
         public static string QueueName { get; } = "HipChatNotifications";

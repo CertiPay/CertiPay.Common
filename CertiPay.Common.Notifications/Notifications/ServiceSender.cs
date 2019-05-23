@@ -86,11 +86,13 @@ namespace CertiPay.Notifications
             }
         }
 
+        [Obsolete(message: "HipChat is no longer in service")]
         public virtual async Task SendAsync(HipChatNotification notification)
         {
             await SendAsync(notification, CancellationToken.None);
         }
 
+        [Obsolete(message: "HipChat is no longer in service")]
         public virtual async Task SendAsync(HipChatNotification notification, CancellationToken token)
         {
             using (Log.Timer("ServiceSender.SendAsync", warnIfExceeds: Timeout))
