@@ -44,7 +44,7 @@ namespace CertiPay.Common.Notifications
     {
         private static readonly ILog Log = LogManager.GetLogger<IEmailService>();
 
-        private readonly SmtpClient _smtp;
+        private readonly SmtpClient smtp;
 
         /// <summary>
         /// The length of time we'll allow for downloading attachments for email notifications.
@@ -66,7 +66,7 @@ namespace CertiPay.Common.Notifications
 
         public EmailService(SmtpClient smtp)
         {
-            this._smtp = smtp;
+            this.smtp = smtp;
         }
 
         public async Task SendAsync(EmailNotification notification)
@@ -76,7 +76,6 @@ namespace CertiPay.Common.Notifications
 
         public async Task SendAsync(EmailNotification notification, CancellationToken token)
         {
-            using (Log.Timer("EmailService.SendAsync - {@notification}", notification))
             using (var msg = new MailMessage { })
             {
                 // If no address is provided, it will use the default one from the Smtp config
@@ -123,7 +122,7 @@ namespace CertiPay.Common.Notifications
                 FilterRecipients(message.CC);
                 FilterRecipients(message.Bcc);
 
-                _smtp.Send(message);
+                smtp.Send(message);
             }
         }
 
@@ -138,7 +137,7 @@ namespace CertiPay.Common.Notifications
             FilterRecipients(message.CC);
             FilterRecipients(message.Bcc);
 
-            await _smtp.SendMailAsync(message).ConfigureAwait(false);
+            await smtp.SendMailAsync(message).ConfigureAwait(false);
         }
 
         public virtual void FilterRecipients(MailAddressCollection addresses)
