@@ -38,7 +38,7 @@ namespace CertiPay.Common.Notifications
 
         public Task SendAsync(SMSNotification notification, CancellationToken token)
         {
-            using (Log.Timer("SMSNotification.SendAsync - @{notification}", context: notification))
+            using (Log.Timer("SMSNotification.SendAsync - {@notification}", context: notification))
             {
                 foreach (var recipient in notification.Recipients)
                 {
