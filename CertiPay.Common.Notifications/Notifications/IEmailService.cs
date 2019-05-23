@@ -82,7 +82,7 @@ namespace CertiPay.Common.Notifications
 
                 if (!String.IsNullOrWhiteSpace(notification.FromAddress))
                 {
-                    msg.From = new MailAddress(notification.FromAddress);
+                    msg.From = new MailAddress(notification.FromAddress, notification.FromName ?? notification.FromAddress);
                 }
 
                 foreach (var recipient in notification.Recipients)

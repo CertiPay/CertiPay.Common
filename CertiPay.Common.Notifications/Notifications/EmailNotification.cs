@@ -11,9 +11,14 @@ namespace CertiPay.Common.Notifications
         public static String QueueName { get { return "EmailNotifications"; } }
 
         /// <summary>
-        /// Who the email notification should be FROM
+        /// Email address message should be delivered FROM.
         /// </summary>
         public String FromAddress { get; set; }
+
+        /// <summary>
+        /// Name of email sender
+        /// </summary>
+        public String FromName { get; set; }
 
         /// <summary>
         /// A list of email addresses to CC
