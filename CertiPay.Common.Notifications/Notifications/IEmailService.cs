@@ -102,8 +102,8 @@ namespace CertiPay.Common.Notifications
 
                 msg.Subject = notification.Subject;
                 msg.Body = notification.Content;
-               
-                msg.IsBodyHtml = (notification.EmailType == EmailNotification.EmailFormat.HTML);                
+
+                msg.IsBodyHtml = (notification.EmailType == EmailNotification.EmailFormat.HTML);
 
                 foreach (var attachment in notification.Attachments)
                 {
@@ -133,11 +133,14 @@ namespace CertiPay.Common.Notifications
 
         public async Task SendAsync(MailMessage message, CancellationToken token)
         {
-            FilterRecipients(message.To);
-            FilterRecipients(message.CC);
-            FilterRecipients(message.Bcc);
+            using (Log.Timer("EmailService.SendAsync - {@notification}", context: ForLog(message)))
+            {
+                FilterRecipients(message.To);
+                FilterRecipients(message.CC);
+                FilterRecipients(message.Bcc);
 
-            await smtp.SendMailAsync(message).ConfigureAwait(false);
+                await smtp.SendMailAsync(message).ConfigureAwait(false);
+            }
         }
 
         public virtual void FilterRecipients(MailAddressCollection addresses)
