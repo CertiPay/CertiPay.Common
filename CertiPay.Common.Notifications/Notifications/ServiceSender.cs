@@ -105,7 +105,7 @@ namespace CertiPay.Notifications
         {
             var json = Serializer.Serialize(t);
 
-            var content = new StringContent(json, Encoding.Default, "application/json");
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             await GetClient().PostAsync(resource, content, token);
         }
