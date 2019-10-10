@@ -48,4 +48,4 @@ deploy:
   on: 
     branch: master
   api_key:
-    secure: PX4SQKBZW9Hrg8FpPlC5se4gOqNAkKcsl6SsmVn5AFFIJy/KVFaZZLpS9U+lfTS3
+    secure: oy2iupdor73a2t2l4hnasxnjdb7nmmlunfamwe77lddb3q
